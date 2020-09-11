@@ -1,0 +1,41 @@
+
+un fichier
+    proposer le bon nom de fichier non existant
+    choisir
+    convertir
+    notifier fichier
+un dossier
+    (afficher case extraire les pistes videos/extraire les pistes audios
+     afficher case copier les fichiers non-audio et spinbox limite de taille)
+    proposer un nouveau nom de dossier parrallèle non existant
+    choisir
+    supprimer le dossier parrallèle si non choisi
+    convertir les audios dans le dossier choisi et choisir les noms de fichiers juste avant conversion
+    notifier nb fichiers convertis et nb fichiers copiés dans nouveau_dossier
+
+plusieurs fichiers
+    dans le même dossier
+        si place il y a :
+            convertir directement dans le dossier en choisissant le nom des fichiers juste avant conversion
+        sinon choisir dossier
+        si <= 4 fichiers:
+            notifier les 4 fichiers
+        sinon:
+            notifier dossier avec nb fichiers convertis
+
+    dans plusieurs dossiers:
+        proposer dossier parrallèle au dossier racine
+        choisir
+        supprimer le dossier parrallèle si non choisi
+        convertir en recréant l'arborescence et les noms de fichiers (choisir les noms juste avant conversion)
+
+plusieurs dossiers:
+    (afficher case extraire les pistes videos/extraire les pistes audios
+     afficher case copier les fichiers non-audio et spinbox limite de taille)
+    supprimer de la liste les dossiers déjà dans d'autres dossiers
+    proposer dossier parrallèle au dossier racine
+    choisir
+    supprimer le dossier parrallèle si non choisi
+    convertir en recréant l'arborescence
+    notifier nb fichiers convertis et nb fichiers copiés dans nouveau_dossier
+    
