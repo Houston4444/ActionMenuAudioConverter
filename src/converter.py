@@ -6,12 +6,12 @@ import subprocess
 import sys
 import threading
 
-#from pymediainfo import MediaInfo
+from pymediainfo import MediaInfo
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QApplication, QDialog, QFileDialog
-from PyQt5.QtCore import QProcess, QTimer
+from PyQt5.QtWidgets import QApplication, QDialog, QFileDialog, QMessageBox
+from PyQt5.QtCore import QProcess, QTimer, QLocale, QTranslator
 
-import ui_ogg
+import ui_first_dialog
 import ui_progress
 
 EXTENSIONS = {'wav': 'audio-x-wav',
@@ -23,12 +23,15 @@ MODE_ONE_FILE = 0 # there is only one file given as argument
 MODE_MANY_FILES = 1 # many files are given as arguments
 MODE_FOLDERS = 2 # arguments are folders
 
-def home_clean(path:str)->str:
+MODE_VIDEO_EXTRACT = 0
+MODE_VIDEO_COPY = 1
+
+def home_clean(path: str)->str:
     if path.startswith(os.getenv('HOME') + '/'):
         return path.replace(os.getenv('HOME') + '/', '~/', 1)
     return path
 
-def file_path_convert(ext:str, file_path:str, black_list:list)->str:
+def file_path_convert(ext: str, file_path: str, black_list: list)->str:
         file_no_ext = file_path
         if '.' in os.path.basename(file_path):
             file_no_ext = file_path.rpartition('.')[0]
@@ -46,15 +49,24 @@ def file_path_convert(ext:str, file_path:str, black_list:list)->str:
 class MainObject:
     extension = 'wav'
     mode = MODE_MANY_FILES
+    video_mode = MODE_VIDEO_EXTRACT
     input_common_path = ''
     output_common_path = ''
+    max_copy_size = 1024 * 1024 * 10
     _walk_finished = False
+    _running_index = -1
     
     def __init__(self, extension, arg_files):
         self.extension = extension
         self.arg_files = arg_files
         self.true_files = []
+        self.files_error_indexes = []
         self.process_args = []
+        self.progress_dialog = None
+        
+        self.process = QProcess()
+        self.process.setProcessChannelMode(QProcess.ForwardedChannels)
+        self.process.finished.connect(self.process_finished)
         
         if not arg_files:
             sys.stderr.write("error, missing arguments\n")
@@ -71,11 +83,19 @@ class MainObject:
             self.input_common_path = os.path.commonpath(arg_files)
         
         if self.mode == MODE_ONE_FILE:
-            self.output_common_path = file_path_convert(self.extension, self.input_common_path, [])
+            self.output_common_path = file_path_convert(
+                self.extension, self.input_common_path, [])
         elif self.mode == MODE_MANY_FILES:
             self.output_common_path = self.input_common_path
         elif self.mode == MODE_FOLDERS:
-            self.output_common_path = "%s (%s)" % (self.input_common_path, self.extension)
+            self.output_common_path = "%s (%s)" % (
+                self.input_common_path, self.extension)
+            
+            n = 1
+            while os.path.exists(self.output_common_path):
+                self.output_common_path = "%s (%s) (%i)" % (
+                    self.input_common_path, self.extension, n)
+                n += 1
     
     def arg_files_len(self):
         return len(self.arg_files)
@@ -92,10 +112,14 @@ class MainObject:
         
         for arg_dir in self.arg_files:
             for root, dirs, files in os.walk(arg_dir):
-                base_root = root.replace(self.input_common_path + '/', '', 1)
-                for file in files:
-                    self.true_files.append("%s/%s" % (base_root, file))
-                    
+                if root == self.input_common_path:
+                    for file in files:
+                        self.true_files.append(file)
+                else:
+                    base_root = root.replace(self.input_common_path + '/', '', 1)
+                    for file in files:
+                        self.true_files.append("%s/%s" % (base_root, file))
+                        
         self._walk_finished = True
     
     def walk_finished(self):
@@ -134,6 +158,72 @@ class MainObject:
         
         return "%s/%s" % (output_dir, output_file)
     
+    def process_finished(self, exit_code, exit_status):
+        if exit_code:
+            self.files_error_indexes.append(self._running_index)
+        
+        if self._running_index + 1 == len(self.true_files):
+            self.progress_dialog.accept()
+            return
+        
+        self.start_next_process()
+    
+    def start_next_process(self):
+        self._running_index += 1
+        input_file = self.get_full_true_file_path(self._running_index)
+        
+        is_video = False
+        is_audio = False
+        must_copy = False
+        
+        media = MediaInfo.parse(input_file)
+        for track in media.tracks:
+            if track.track_type == "Video":
+                is_video = True
+            elif track.track_type == "Audio":
+                is_audio = True
+        
+        if not is_audio or (is_video and self.video_mode == MODE_VIDEO_COPY):
+            if os.path.getsize(input_file) > self.max_copy_size:
+                # simulate process finished because we won't do anything with this file
+                self.process_finished(0, 0)
+                return
+            must_copy = True
+        
+        output_file = self.get_converted_file(self._running_index)
+        if must_copy:
+            output_file = input_file.replace(self.input_common_path, self.output_common_path, 1)
+            
+        output_dir = os.path.dirname(output_file)
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir)
+        
+        command = 'ffmpeg'
+        process_args = []
+        
+        if must_copy:
+            command = 'cp'
+            process_args += [input_file, output_file]
+        else:
+            process_args += ['-hide_banner', '-i', input_file]
+            process_args += self.process_args
+            process_args.append(output_file)
+        
+        # write the command in the terminal to say how it works
+        cli_args = []
+        for string in process_args:
+            if shlex.quote(string).startswith("'"):
+                cli_args.append('"%s"' % string.replace('"', '\"'))
+            else:
+                cli_args.append(string)
+        
+        sys.stdout.write("\033[92m$\033[0m %s %s\n" % (command, ' '.join(cli_args)))
+        
+        self.process.start(command, process_args)
+        
+        self.progress_dialog.display_running_file(
+            input_file, output_file, self._running_index, len(self.true_files))
+    
     
 class ProgressDialog(QDialog):
     def __init__(self, main_object):
@@ -146,62 +236,44 @@ class ProgressDialog(QDialog):
         self.timer.setInterval(100)
         self.timer.timeout.connect(self.check_n_files)
         
+        if self.mo.mode == MODE_ONE_FILE:
+            self.ui.line_2.setVisible(False)
+            self.ui.labelStep.setVisible(False)
+            self.ui.progressBar.setVisible(False)
+        
+        self.ui.labelExtension.setText(
+            "Conversion to %s..." % self.mo.extension.upper())
+        
         self.check_n_files()
         self.timer.start()
-            
-        self.process = QProcess()
-        self.process.setProcessChannelMode(QProcess.ForwardedChannels)
-        self.process.finished.connect(self.process_finished)
-        
-        self.file_error_indexes = []
-        self.running_index = 0
-        
-        self.start_process()
     
     def check_n_files(self):
         number_of_files = len(self.mo.true_files)
         self.ui.progressBar.setMaximum(number_of_files)
         if self.mo.walk_finished():
             self.timer.stop()
+        
+    def display_running_file(self, input_file: str, output_file: str,
+                             running_index: int, total: int):
+        self.ui.labelSource.setText(home_clean(input_file))
+        self.ui.labelDestination.setText(home_clean(output_file))
+        self.ui.labelStep.setText(
+            "Treating file %i/%i" % (running_index + 1, total))
+        self.ui.progressBar.setMaximum(total)
+        self.ui.progressBar.setValue(running_index)
     
-    def process_finished(self, exit_code, exit_status):
-        if exit_code:
-            self.files_error_indexes.append(self.running_index)
-        self.running_index += 1
-        self.ui.progressBar.setValue(self.running_index)
-        
-        if self.running_index == len(self.mo.true_files):
-            self.accept()
-            return
-        
-        self.start_process()
-        
-    def start_process(self):
-        process_args = ['-hide_banner', '-i',
-                        self.mo.get_full_true_file_path(self.running_index)]
-        process_args += self.mo.process_args
-        process_args.append(self.mo.get_converted_file(self.running_index))
-        
-        cli_args = []
-        for string in process_args:
-            if shlex.quote(string).startswith("'"):
-                cli_args.append('"%s"' % string.replace('"', '\"'))
-            else:
-                cli_args.append(string)
-        
-        sys.stdout.write("\033[92m$\033[0m ffmpeg " + ' '.join(cli_args) + '\n')
-        self.process.start('ffmpeg', process_args)
-        
-        self.ui.labelSource.setText(home_clean(self.mo.get_full_true_file_path(self.running_index)))
-        self.ui.labelStep.setText("Treating file %i/%i" % (self.running_index + 1, len(self.mo.true_files)))
+    def close_terminal_at_end(self)->bool:
+        return self.ui.checkBox.isChecked()
 
-class ogg_dialog(QDialog):
+
+class FirstDialog(QDialog):
     def __init__(self, main_object):
         QDialog.__init__(self)
-        self.ui = ui_ogg.Ui_Dialog()
+        self.ui = ui_first_dialog.Ui_Dialog()
         self.ui.setupUi(self)
         
         self.mo = main_object
+        upper_ext = self.mo.extension.upper()
         
         self.ui.comboBoxSamplerate.addItem('44.100 kHz', 44100)
         self.ui.comboBoxSamplerate.addItem('48.000 kHz', 48000)
@@ -237,21 +309,41 @@ class ogg_dialog(QDialog):
         label = ""
         
         if self.mo.mode == MODE_FOLDERS:
-            if len(self.mo.arg_files) == 1:
-                label = "<p>Convert audio files in folder "
-                label += "<strong>%s</strong> to %s.</p>" \
-                    % (home_clean(self.mo.arg_files[0]), self.mo.extension.upper())
+            if len(self.mo.arg_files) <= 5:
+                label = "<p>"
+                if len(self.mo.arg_files) == 1:
+                    label += self.tr("Convert to %s audio files in folder") \
+                        % upper_ext
+                else:
+                    label += self.tr("Convert to %s audio files in folders") \
+                        % upper_ext
+                label += "<br><span style=\" font-style:italic;\">"
+                label += '<br>'.join(
+                    ["%s" % home_clean(a) for a in self.mo.arg_files]) 
+                label += "</span></p>"
             else:
-                label = "<p>Convert %i folders to %s.</p>" % (len(self.mo.arg_files),
-                                                     self.mo.extension.upper())
-        elif self.mo.mode == MODE_ONE_FILE:
-            label = "<p>Convert <strong>%s</strong> to %s.</p>" \
-                    % (home_clean(self.mo.input_common_path), self.mo.extension.upper())
-            self.ui.groupBoxFolder.setVisible(False)
+                label = self.tr("Convert to %s audio files in %i folders" % (
+                    len(self.mo.arg_files), len(self.mo.arg_files)))
             
-        elif self.mo.mode == MODE_MANY_FILES:
-            label = "<p>Convert %i files to %s.</p>" % (len(self.mo.arg_files),
-                                                        self.mo.extension.upper())
+        else:
+            if len(self.mo.arg_files) <= 5:
+                label = "<p>"
+                if self.mo.mode == MODE_ONE_FILE:
+                    label += self.tr("Convert to %s audio file") % upper_ext
+                    label += "<br><span style=\" font-style:italic;\">%s</span></p>" \
+                        % home_clean(self.mo.input_common_path)
+                    
+                    #self.ui.labelOutputPath.setText(self.tr("Output file"))
+                else:
+                    label += self.tr("Convert to %s audio files") % upper_ext
+                    label += "<br><span style=\" font-style:italic;\">"
+                    label += '<br>'.join(
+                        ["%s" % home_clean(a) for a in self.mo.arg_files])
+                    label += "</span></p>"
+            else:
+                label = self.tr("Convert %i audio files to %s") % (
+                    len(self.mo.arg_files), upper_ext)
+                    
             self.ui.groupBoxFolder.setVisible(False)
             
         self.ui.labelPresentation.setText(label)
@@ -271,6 +363,8 @@ class ogg_dialog(QDialog):
             self.ui.labelColonBitDepth.setVisible(False)
             self.ui.comboBoxBitDepth.setVisible(False)
         
+        self.setWindowTitle(self.tr("%s Conversion") % upper_ext)
+        
         self.resize(0, 0)
         #self.resize(self.width(), self.height() + 100)
         
@@ -283,29 +377,58 @@ class ogg_dialog(QDialog):
             self.ui.checkBoxVideo.setChecked(True)
     
     def tool_button_output_path_clicked(self):
-        if self.mo.mode == MODE_ONE_FILE:
-            path = QFileDialog.getSaveFileName(
-                self, "convert to…", self.mo.output_common_path,
-                "Audio Files (*.%s)" % self.mo.extension)
-            if not path:
-                return
-        else:
-            path = QFileDialog.getExistingDirectory(
-                self, "Choose directory where files will be converted…", self.mo.output_common_path)
-            if not path:
-                return
-
+        path = ""
+        check_path = ""
+        
+        while True:
+            if self.mo.mode == MODE_ONE_FILE:
+                path, ok = QFileDialog.getSaveFileName(
+                    self,
+                    self.tr("Convert to %s to…") % self.mo.extension.upper(),
+                    self.mo.output_common_path,
+                    self.tr("Audio Files (*.%s)") % self.mo.extension)
+                
+                if not ok:
+                    return
+                
+                check_path = os.path.dirname(path)
+            else:
+                path = QFileDialog.getExistingDirectory(
+                    self,
+                    self.tr("Folder where files will be converted to %s") 
+                        % self.mo.extension.upper(),
+                    self.mo.output_common_path)
+                
+                if not path:
+                    return
+                
+                check_path = path
+            
+            if not os.access(check_path, os.W_OK):
+                QMessageBox.critical(self, self.tr("Unwritable Path"),
+                    self.tr("%s is not writable, please choose a writable path.") % (path))
+                continue
+            
+            if self.mo.mode == MODE_FOLDERS:
+                for folder in self.mo.arg_files:
+                    if folder == path or path.startswith(folder + '/'):
+                        QMessageBox.critical(self, self.tr("Wrong folder"), 
+                            self.tr("Impossible. Folder %s is in %s which is part of the selection")
+                                % (path, folder))
+                        continue
+            break
+        
         self.set_output_path(path)
     
     def set_output_path(self, path):        
-        path_label = "<html><head/><body><p>Output folder:<br/>"
+        path_label = "<p>%s<br/>" % self.tr("Output folder:")
         if self.mo.mode == MODE_ONE_FILE:
-            path_label = "<html><head/><body><p>Output file:<br/>"
+            path_label = "><p>%s<br/>" % self.tr("Output file:")
         path_label += "<span style=\" font-style:italic;\">"
         path_label += home_clean(path)
         if not self.mo.mode == MODE_ONE_FILE:
             path_label += '/'
-        path_label += "</span></p></body></html>"
+        path_label += "</span></p>"
         
         self.output_path = path
         self.ui.labelOutputPath.setText(path_label)
@@ -347,24 +470,6 @@ class ogg_dialog(QDialog):
 
         return args
     
-def extension_and_files(args):
-    if len(args) < 3:
-        sys.stderr.write('Not enought arguments.\n')
-        sys.exit(1)
-    
-    extension = args[1]
-    if not extension.lower() in EXTENSIONS:
-        sys.stderr.write('extension can only be %s.\n' % ' '.join(EXTENSIONS))
-        sys.exit(1)
-    
-    files = []
-    for input_file in args[2:]:
-        if not input_file.startswith('/'):
-            input_file = os.getcwd() + '/' + input_file
-        files.append(input_file)
-        
-    return (extension, files)
-
 def main_script():
     if len(sys.argv) < 3:
         sys.stderr.write('Not enought arguments.\n')
@@ -387,19 +492,35 @@ def main_script():
     app = QApplication(sys.argv)
     app.setWindowIcon(QIcon.fromTheme(EXTENSIONS[extension]))
     
-    dialog = ogg_dialog(main_object)
+    ### Translation process
+    locale = QLocale.system().name()
+    appTranslator = QTranslator()
+    code_root = os.path.dirname(os.path.dirname(sys.argv[0]))
+    #print(sys.argv[0])
+    if appTranslator.load("%s/locale/converter_%s" % (code_root, locale)):
+        app.installTranslator(appTranslator)
+    
+    dialog = FirstDialog(main_object)
     dialog.exec()
     if not dialog.result():
         sys.exit(0)
-        
-    main_object.output_common_path = dialog.get_output_path()
-    main_object.process_args = dialog.get_process_args()
     
     progress_dialog = ProgressDialog(main_object)
+    main_object.progress_dialog = progress_dialog
+    main_object.output_common_path = dialog.get_output_path()
+    main_object.process_args = dialog.get_process_args()
+    main_object.start_next_process()
     progress_dialog.exec()
     
     walk_thread.join()
     app.quit()
+    
+    if main_object.files_error_indexes:
+        sys.stderr.write("Some errors appears, ")
+    if (main_object.files_error_indexes
+            or not progress_dialog.close_terminal_at_end()):
+        sys.stderr.write("Press Enter to close this terminal:")
+        input()
 
 if __name__ == '__main__':
     main_script()

@@ -23,7 +23,7 @@ endif
 # -----------------------------------------------------------------------------------------------------------------------------------------
 
 # all: RES UI LOCALE
-all: converter
+all: UI LOCALE
 
 # -----------------------------------------------------------------------------------------------------------------------------------------
 # Resources
@@ -38,21 +38,21 @@ all: converter
 
 UI: converter
 
-converter: src/ui_ogg.py \
+converter: src/ui_first_dialog.py \
 	   src/ui_progress.py
 
 src/ui_%.py: resources/ui/%.ui
 	$(PYUIC) $< -o $@
 	
 # -----------------------------------------------------------------------------------------------------------------------------------------
-# # Translations Files
+# Translations Files
 
-# LOCALE: locale
-# 
-# locale: locale/raysession_fr_FR.qm locale/raysession_en_US.qm
-# 
-# locale/%.qm: locale/%.ts
-# 	$(LRELEASE) $< -qm $@
+LOCALE: locale
+
+locale: locale/converter_fr_FR.qm locale/converter_en_US.qm
+
+locale/%.qm: locale/%.ts
+	$(LRELEASE) $< -qm $@
 # -----------------------------------------------------------------------------------------------------------------------------------------
 
 clean:
