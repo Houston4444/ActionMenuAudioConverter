@@ -26,6 +26,11 @@ MODE_FOLDERS = 2 # arguments are folders
 MODE_VIDEO_EXTRACT = 0
 MODE_VIDEO_COPY = 1
 
+def limit_str(string: str)->str:
+    if len(string) > 140:
+        return "%s[…]%s" % (string[:68], string[-68:])
+    return string
+
 def home_clean(path: str)->str:
     if path.startswith(os.getenv('HOME') + '/'):
         return path.replace(os.getenv('HOME') + '/', '~/', 1)
@@ -255,8 +260,8 @@ class ProgressDialog(QDialog):
         
     def display_running_file(self, input_file: str, output_file: str,
                              running_index: int, total: int):
-        self.ui.labelSource.setText(home_clean(input_file))
-        self.ui.labelDestination.setText(home_clean(output_file))
+        self.ui.labelSource.setText(limit_str(home_clean(input_file)))
+        self.ui.labelDestination.setText(limit_str(home_clean(output_file)))
         self.ui.labelStep.setText(
             "Treating file %i/%i" % (running_index + 1, total))
         self.ui.progressBar.setMaximum(total)
@@ -331,14 +336,12 @@ class FirstDialog(QDialog):
                 if self.mo.mode == MODE_ONE_FILE:
                     label += self.tr("Convert to %s audio file") % upper_ext
                     label += "<br><span style=\" font-style:italic;\">%s</span></p>" \
-                        % home_clean(self.mo.input_common_path)
-                    
-                    #self.ui.labelOutputPath.setText(self.tr("Output file"))
+                        % limit_str(home_clean(self.mo.input_common_path))
                 else:
                     label += self.tr("Convert to %s audio files") % upper_ext
                     label += "<br><span style=\" font-style:italic;\">"
                     label += '<br>'.join(
-                        ["%s" % home_clean(a) for a in self.mo.arg_files])
+                        ["%s" % limit_str(home_clean(a)) for a in self.mo.arg_files])
                     label += "</span></p>"
             else:
                 label = self.tr("Convert %i audio files to %s") % (
@@ -425,7 +428,7 @@ class FirstDialog(QDialog):
         if self.mo.mode == MODE_ONE_FILE:
             path_label = "><p>%s<br/>" % self.tr("Output file:")
         path_label += "<span style=\" font-style:italic;\">"
-        path_label += home_clean(path)
+        path_label += limit_str(home_clean(path))
         if not self.mo.mode == MODE_ONE_FILE:
             path_label += '/'
         path_label += "</span></p>"
@@ -516,10 +519,10 @@ def main_script():
     app.quit()
     
     if main_object.files_error_indexes:
-        sys.stderr.write("Some errors appears, ")
+        sys.stderr.write(app.tr("Some errors appears, "))
     if (main_object.files_error_indexes
             or not progress_dialog.close_terminal_at_end()):
-        sys.stderr.write("Press Enter to close this terminal:")
+        sys.stderr.write(app.tr("Press Enter to close this terminal:"))
         input()
 
 if __name__ == '__main__':
