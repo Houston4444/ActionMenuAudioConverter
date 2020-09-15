@@ -3,117 +3,117 @@
 <context>
     <name>Dialog</name>
     <message>
-        <location filename="../resources/ui/first_dialog.ui" line="14"/>
+        <location filename="../src/ui_first_dialog.py" line="138"/>
         <source>Convert to OGG</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../resources/ui/first_dialog.ui" line="20"/>
+        <location filename="../src/ui_first_dialog.py" line="139"/>
         <source>Convert file to OGG.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../resources/ui/first_dialog.ui" line="75"/>
+        <location filename="../src/ui_first_dialog.py" line="140"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;44.100 KHz is used for Audio CD.&lt;br/&gt;48.000 KHz is commonly used for video.&lt;/p&gt;&lt;p&gt;Audio quality and file size increases with the value.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../resources/ui/progress.ui" line="95"/>
+        <location filename="../src/ui_progress.py" line="101"/>
         <source>:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../resources/ui/first_dialog.ui" line="96"/>
+        <location filename="../src/ui_first_dialog.py" line="143"/>
         <source>Change quality to</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../resources/ui/first_dialog.ui" line="103"/>
+        <location filename="../src/ui_first_dialog.py" line="144"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Check it if you want to specify the samplerate of the converted file(s).&lt;/p&gt;&lt;p&gt;If you don&apos;t check it, converted files will have the same samplerate as input files.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../resources/ui/first_dialog.ui" line="109"/>
+        <location filename="../src/ui_first_dialog.py" line="145"/>
         <source>Change samplerate to</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../resources/ui/first_dialog.ui" line="116"/>
+        <location filename="../src/ui_first_dialog.py" line="146"/>
         <source>Change quality to </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../resources/ui/first_dialog.ui" line="123"/>
+        <location filename="../src/ui_first_dialog.py" line="147"/>
         <source>Change bit depth to</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../resources/ui/first_dialog.ui" line="205"/>
+        <location filename="../src/ui_first_dialog.py" line="150"/>
         <source>Mb</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../resources/ui/first_dialog.ui" line="218"/>
+        <location filename="../src/ui_first_dialog.py" line="151"/>
         <source>Extract audio tracks from video files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../resources/ui/first_dialog.ui" line="225"/>
+        <location filename="../src/ui_first_dialog.py" line="152"/>
         <source>Convert audio files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../resources/ui/first_dialog.ui" line="235"/>
+        <location filename="../src/ui_first_dialog.py" line="153"/>
         <source>Copy other files until :</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../resources/ui/first_dialog.ui" line="275"/>
+        <location filename="../src/ui_first_dialog.py" line="154"/>
         <source>...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../resources/ui/first_dialog.ui" line="286"/>
+        <location filename="../src/ui_first_dialog.py" line="155"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Output folder:&lt;br/&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;~/Music/Didier Barbelavie/&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../resources/ui/progress.ui" line="14"/>
+        <location filename="../src/ui_progress.py" line="94"/>
         <source>OGG conversion</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../resources/ui/progress.ui" line="20"/>
+        <location filename="../src/ui_progress.py" line="95"/>
         <source>Conversion to OGG.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../resources/ui/progress.ui" line="36"/>
+        <location filename="../src/ui_progress.py" line="96"/>
         <source>~/Music/Renaud/Coronavirus.flac</source>
         <translation type="unfinished"></translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="../resources/ui/progress.ui" line="43"/>
+        <location filename="../src/ui_progress.py" line="97"/>
         <source>~/Music/Bernard Tapie/Réussir sa vie.mp3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../resources/ui/progress.ui" line="56"/>
+        <location filename="../src/ui_progress.py" line="98"/>
         <source>Source</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../resources/ui/progress.ui" line="69"/>
+        <location filename="../src/ui_progress.py" line="99"/>
         <source>Destination</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../resources/ui/progress.ui" line="111"/>
+        <location filename="../src/ui_progress.py" line="102"/>
         <source>Treating file 1/4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../resources/ui/progress.ui" line="135"/>
+        <location filename="../src/ui_progress.py" line="103"/>
         <source>Close the terminal once it is finished</source>
         <translation type="unfinished"></translation>
     </message>
@@ -121,8 +121,96 @@
 <context>
     <name>FirstDialog</name>
     <message>
-        <location filename="../src/converter.py" line="317"/>
-        <source>&lt;p&gt;Convert audio files in folder </source>
+        <location filename="../src/converter.py" line="325"/>
+        <source>Convert to %s audio files in folder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/converter.py" line="328"/>
+        <source>Convert to %s audio files in folders</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/converter.py" line="335"/>
+        <source>Convert to %s audio files in %i folders</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/converter.py" line="342"/>
+        <source>Convert to %s audio file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/converter.py" line="346"/>
+        <source>Convert to %s audio files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/converter.py" line="352"/>
+        <source>Convert %i audio files to %s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/converter.py" line="374"/>
+        <source>%s Conversion</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/converter.py" line="395"/>
+        <source>%s Audio files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/converter.py" line="408"/>
+        <source>Folder where files will be converted to %s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/converter.py" line="420"/>
+        <source>Unwritable Path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/converter.py" line="420"/>
+        <source>%s is not writable, please choose a writable path.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/converter.py" line="427"/>
+        <source>Wrong folder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/converter.py" line="427"/>
+        <source>Impossible. Folder %s is in %s which is part of the selection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/converter.py" line="436"/>
+        <source>Output folder:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/converter.py" line="438"/>
+        <source>Output file:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/converter.py" line="395"/>
+        <source>Convert to %s to...</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>app</name>
+    <message>
+        <location filename="../src/converter.py" line="531"/>
+        <source>Some errors appears, </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/converter.py" line="534"/>
+        <source>Press Enter to close this terminal:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

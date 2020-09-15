@@ -1,0 +1,35 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=KonqPopupMenu/Plugin
+MimeType=video/*;
+Actions=ogg;flac;wav;mp3
+X-KDE-Submenu=Extract audio track to
+X-KDE-Submenu[fr]=Extraire la piste audio en
+X-KDE-Submenu[it]=Estrai la traccia audio in
+Encoding=UTF8
+Icon=video-x-generic
+
+[Desktop Action ogg]
+Name=ogg
+Icon=audio-x-generic
+Exec=action_menu_audio_converter.sh ogg %F
+
+[Desktop Action flac]
+Name=flac
+Icon=audio-x-flac
+Exec=action_menu_audio_converter.sh flac %F
+
+[Desktop Action wav]
+Name=wav
+Icon=audio-x-wav
+Exec=action_menu_audio_converter.sh wav %F
+
+[Desktop Action mp3]
+Name=mp3
+Icon=audio-mp3
+Exec=action_menu_audio_converter.sh mp3 %F
+
+[Desktop Action m4a]
+Name=m4a
+Icon=audio-mp4
+Exec=action_menu_audio_converter.sh m4a %F

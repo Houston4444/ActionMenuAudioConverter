@@ -1,13 +1,14 @@
 #!/bin/bash
 
-PREFIX=XXX_PREFIX_XXX
+INSTALL_PREFIX="X-PREFIX-X"
 
-main_command=audioconvv
-terminal_title="Audio Conversion to $1"
+main_command="$INSTALL_PREFIX/share/ActionMenuAudioConverter/src/converter.py"
+extension="$1"
+terminal_title="Audio Conversion to ${extension^^}"
 
 case $LANG in
     fr_*)
-        terminal_title="Conversion audio en $1"
+        terminal_title="Conversion audio en ${extension^^}"
         ;;
 esac
 
@@ -28,11 +29,11 @@ case $XDG_CURRENT_DESKTOP in
         terminals="xfce-terminal xfce4-terminal"
     ;;
     LXDE )
-        terminals="lxterminal"
+        terminals=lxterminal
     ;;
 esac
 
-terminals="${terminals} xterm rxvt"
+terminals="${terminals} gnome-terminal mate-terminal xfce4-terminal xterm konsole lxterminal rxvt"
 terminal=""
 
 for term in $terminals; do
@@ -46,7 +47,6 @@ if [ -z "$terminal" ];then
     echo "No terminal found, abort." >2
     exit 1
 fi
-echo terminal: $terminal
 
 # execute the good terminal with good arguments
 case $terminal in
@@ -54,7 +54,6 @@ case $terminal in
         exec gnome-terminal --hide-menubar -e "$main_command" "$@"
     ;;
     konsole )
-        echo konsole --hide-tabbar --hide-menubar -p tabtitle="$terminal_title" -e "$main_command" "$@"
         exec konsole --hide-tabbar --hide-menubar -p tabtitle="$terminal_title" -e "$main_command" "$@"
     ;;
     mate-terminal )

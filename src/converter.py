@@ -387,9 +387,11 @@ class FirstDialog(QDialog):
             if self.mo.mode == MODE_ONE_FILE:
                 path, ok = QFileDialog.getSaveFileName(
                     self,
-                    self.tr("Convert to %s to…") % self.mo.extension.upper(),
+                    self.tr("Convert to %s to...") % self.mo.extension.upper(),
                     self.mo.output_common_path,
-                    self.tr("Audio Files (*.%s)") % self.mo.extension)
+                    "%s(*.%s)" % (
+                        self.tr("%s Audio files") % self.mo.extension.upper(),
+                        self.mo.extension))
                 
                 if not ok:
                     return
@@ -424,9 +426,9 @@ class FirstDialog(QDialog):
         self.set_output_path(path)
     
     def set_output_path(self, path):        
-        path_label = "<p>%s<br/>" % self.tr("Output folder:")
+        path_label = "<p><strong>%s</strong><br/>" % self.tr("Output folder:")
         if self.mo.mode == MODE_ONE_FILE:
-            path_label = "><p>%s<br/>" % self.tr("Output file:")
+            path_label = "<p><strong>%s</strong><br/>" % self.tr("Output file:")
         path_label += "<span style=\" font-style:italic;\">"
         path_label += limit_str(home_clean(path))
         if not self.mo.mode == MODE_ONE_FILE:
