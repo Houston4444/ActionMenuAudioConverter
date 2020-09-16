@@ -37,20 +37,6 @@ def home_clean(path: str)->str:
         return path.replace(os.getenv('HOME') + '/', '~/', 1)
     return path
 
-def file_path_convert(ext: str, file_path: str, black_list: list)->str:
-        file_no_ext = file_path
-        if '.' in os.path.basename(file_path):
-            file_no_ext = file_path.rpartition('.')[0]
-
-        output_file = file_no_ext + '.' + ext
-        
-        i=1
-        while os.path.exists(output_file) or output_file in black_list:
-            output_file = file_no_ext + ' (%i).' % i + ext
-            i+=1
-        
-        return output_file
-
 
 class MainObject:
     extension = 'wav'
@@ -89,38 +75,62 @@ class MainObject:
         if len(arg_files) > 1:
             self.input_common_path = os.path.commonpath(arg_files)
         
+        # set the output common path
         if self.mode == MODE_ONE_FILE:
-            file_no_ext = self.input_common_path
-            if '.' in os.path.basename(self.input_common_path):
-                file_no_ext = self.input_common_path.rpartition('.')[0]
-
-            output_file = file_no_ext + '.' + self.extension
+            dirname, slash, file_no_ext = self.input_common_path.rpartition('/')
             
-            i=1
+            if '.' in os.path.basename(file_no_ext):
+                file_no_ext = file_no_ext.rpartition('.')[0]
+            
+            if not os.access(dirname, os.W_OK):
+                dirname = self.get_music_dir()
+            
+            output_file = "%s/%s.%s" % (dirname, file_no_ext, self.extension)
+            
+            i = 1
             while os.path.exists(output_file):
-                output_file = '%s (%i).%s' % (file_no_ext, i, self.extension)
-                i+=1
+                output_file = '%s/%s (%i).%s' % (dirname, file_no_ext, i, self.extension)
+                i += 1
             
             self.output_common_path = output_file
-            self.output_is_writable = bool(
-                os.access(os.path.dirname(self.output_common_path), os.W_OK))
             
         elif self.mode == MODE_MANY_FILES:
             self.output_common_path = self.input_common_path
-            self.output_is_writable = bool(
-                os.access(self.output_common_path, os.W_OK))
+            if not os.access(self.output_common_path, os.W_OK):
+                self.output_common_path = self.get_music_dir()
+                
         elif self.mode == MODE_FOLDERS:
-            self.output_common_path = "%s (%s)" % (
-                self.input_common_path, self.extension)
+            dirname ,slash, basedir = self.input_common_path.rpartition('/')
+            if not os.access(dirname, os.W_OK):
+                dirname = self.get_music_dir()
+            
+            self.output_common_path = "%s/%s (%s)" % (
+                dirname, basedir, self.extension)
             
             n = 1
             while os.path.exists(self.output_common_path):
-                self.output_common_path = "%s (%s) (%i)" % (
-                    self.input_common_path, self.extension, n)
+                self.output_common_path = "%s/%s (%s) (%i)" % (
+                    dirname, self.input_common_path, self.extension, n)
                 n += 1
-            
-            self.output_is_writable = bool(
-                os.access(os.path.dirname(self.output_common_path), os.W_OK))
+    
+    def get_music_dir(self):
+        user_dirs_file = "%s/.config/user-dirs.dirs" % os.getenv('HOME')
+        if (os.path.exists(user_dirs_file)
+                and os.access(user_dirs_file, os.R_OK)):
+            file = open(user_dirs_file, 'r')
+            data = file.read()
+            for line in data.split('\n'):
+                if line.startswith("XDG_MUSIC_DIR="):
+                    music_dirs = line.partition('=')[2]
+                    music_dir_list = shlex.split(music_dirs)
+                    if music_dir_list:
+                        music_dir = os.path.expandvars(music_dir_list[0])
+                        if (os.path.exists(music_dir)
+                                and os.access(music_dir, os.W_OK)):
+                            return music_dir
+                    break
+
+        return os.getenv('HOME')
     
     def arg_files_len(self):
         return len(self.arg_files)
@@ -429,12 +439,14 @@ class FirstDialog(QDialog):
             self.ui.groupBoxFolder.setVisible(False)
             
         self.ui.labelPresentation.setText(label)
+        
+        self.set_output_path(self.mo.output_common_path)
 
-        if self.mo.output_is_writable:
-            self.set_output_path(self.mo.output_common_path)
-        else:
-            # simulate a click on the path button if output is not writable
-            self.tool_button_output_path_clicked()
+        #if self.mo.output_is_writable:
+            #self.set_output_path(self.mo.output_common_path)
+        #else:
+            ## simulate a click on the path button if output is not writable
+            #self.tool_button_output_path_clicked()
         
         if self.mo.extension != 'ogg':
             self.ui.checkBoxOggQuality.setVisible(False)
@@ -601,7 +613,6 @@ class FirstDialog(QDialog):
         if self.mo.mode == MODE_FOLDERS:
             settings.setValue("video_mode", self.get_video_mode())
             settings.setValue("max_copy_size", self.ui.spinBoxCopySize.value())
-        
     
 def main_script():
     if len(sys.argv) < 3:
