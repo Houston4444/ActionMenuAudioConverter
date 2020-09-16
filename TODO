@@ -1,4 +1,4 @@
 notifications 
 message d'invitation dans la console
-séparation de fichiers
+séparation de fichiers -> mettre les globales dans self.mo
 tooltips
