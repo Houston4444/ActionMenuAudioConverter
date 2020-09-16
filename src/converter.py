@@ -9,7 +9,7 @@ import threading
 from pymediainfo import MediaInfo
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QApplication, QDialog, QFileDialog, QMessageBox
-from PyQt5.QtCore import QProcess, QTimer, QLocale, QTranslator
+from PyQt5.QtCore import QProcess, QTimer, QLocale, QTranslator, QSettings
 
 import ui_first_dialog
 import ui_progress
@@ -25,6 +25,7 @@ MODE_FOLDERS = 2 # arguments are folders
 
 MODE_VIDEO_EXTRACT = 0
 MODE_VIDEO_COPY = 1
+MODE_VIDEO_ONLY = 2
 
 def limit_str(string: str)->str:
     if len(string) > 140:
@@ -130,6 +131,9 @@ class MainObject:
     def walk_finished(self):
         return self._walk_finished
     
+    def read_parameters(self, parameters: tuple):
+        self.output_common_path, self.video_mode, self.max_copy_size, self.process_args = parameters
+    
     def get_full_true_file_path(self, index:int)->str:
         if self.mode == MODE_ONE_FILE:
             return self.input_common_path
@@ -174,30 +178,37 @@ class MainObject:
         self.start_next_process()
     
     def start_next_process(self):
-        self._running_index += 1
-        input_file = self.get_full_true_file_path(self._running_index)
-        
-        is_video = False
-        is_audio = False
-        must_copy = False
-        
-        media = MediaInfo.parse(input_file)
-        for track in media.tracks:
-            if track.track_type == "Video":
-                is_video = True
-            elif track.track_type == "Audio":
-                is_audio = True
-        
-        if not is_audio or (is_video and self.video_mode == MODE_VIDEO_COPY):
-            if os.path.getsize(input_file) > self.max_copy_size:
-                # simulate process finished because we won't do anything with this file
-                self.process_finished(0, 0)
-                return
-            must_copy = True
+        while True:
+            self._running_index += 1
+            input_file = self.get_full_true_file_path(self._running_index)
+            
+            is_video = False
+            is_audio = False
+            must_copy = False
+            
+            media = MediaInfo.parse(input_file)
+            for track in media.tracks:
+                if track.track_type == "Video":
+                    is_video = True
+                elif track.track_type == "Audio":
+                    is_audio = True
+            
+            if (not is_audio
+                    or (is_video and self.video_mode == MODE_VIDEO_COPY)
+                    or (not is_video and self.video_mode == MODE_VIDEO_ONLY)):
+                if os.path.getsize(input_file) > self.max_copy_size:
+                    if self._running_index + 1 == len(self.true_files):
+                        self.process_finished(0, 0)
+                        return
+                    continue
+                must_copy = True
+
+            break
         
         output_file = self.get_converted_file(self._running_index)
         if must_copy:
-            output_file = input_file.replace(self.input_common_path, self.output_common_path, 1)
+            output_file = input_file.replace(self.input_common_path,
+                                             self.output_common_path, 1)
             
         output_dir = os.path.dirname(output_file)
         if not os.path.exists(output_dir):
@@ -231,12 +242,13 @@ class MainObject:
     
     
 class ProgressDialog(QDialog):
-    def __init__(self, main_object):
+    def __init__(self, main_object, settings):
         QDialog.__init__(self)
         self.ui = ui_progress.Ui_Dialog()
         self.ui.setupUi(self)
         
         self.mo = main_object
+        self.settings = settings
         self.timer = QTimer()
         self.timer.setInterval(100)
         self.timer.timeout.connect(self.check_n_files)
@@ -246,8 +258,10 @@ class ProgressDialog(QDialog):
             self.ui.labelStep.setVisible(False)
             self.ui.progressBar.setVisible(False)
         
-        self.ui.labelExtension.setText(
-            "Conversion to %s..." % self.mo.extension.upper())
+        self.ui.labelExtension.setText(self.tr(
+            "Conversion to %s...") % self.mo.extension.upper())
+        
+        self.ui.checkBox.setChecked(settings.value('close_terminal', True, type=bool))
         
         self.check_n_files()
         self.timer.start()
@@ -262,23 +276,30 @@ class ProgressDialog(QDialog):
                              running_index: int, total: int):
         self.ui.labelSource.setText(limit_str(home_clean(input_file)))
         self.ui.labelDestination.setText(limit_str(home_clean(output_file)))
-        self.ui.labelStep.setText(
-            "Treating file %i/%i" % (running_index + 1, total))
+        self.ui.labelStep.setText(self.tr(
+            "Treating file %i/%i") % (running_index + 1, total))
         self.ui.progressBar.setMaximum(total)
         self.ui.progressBar.setValue(running_index)
     
     def close_terminal_at_end(self)->bool:
         return self.ui.checkBox.isChecked()
+    
+    def get_terminal_end_translated(self)->tuple:
+        # should not be there, but app.tr() doesn't works
+        return (self.tr("Some errors appears, "),
+                self.tr("Press Enter to close this terminal:"))
 
 
 class FirstDialog(QDialog):
-    def __init__(self, main_object):
+    def __init__(self, main_object, settings):
         QDialog.__init__(self)
         self.ui = ui_first_dialog.Ui_Dialog()
         self.ui.setupUi(self)
         
         self.mo = main_object
-        upper_ext = self.mo.extension.upper()
+        self.settings = settings
+        ext = self.mo.extension
+        upper_ext = ext.upper()
         
         self.ui.comboBoxSamplerate.addItem('44.100 kHz', 44100)
         self.ui.comboBoxSamplerate.addItem('48.000 kHz', 48000)
@@ -287,16 +308,40 @@ class FirstDialog(QDialog):
             self.ui.comboBoxSamplerate.addItem('96.000 kHz', 96000)
             self.ui.comboBoxSamplerate.addItem('192.000 kHz', 192000)
         self.ui.comboBoxSamplerate.setCurrentIndex(0)
+        for i in range(self.ui.comboBoxSamplerate.count()):
+            if (self.ui.comboBoxSamplerate.itemData(i)
+                    == settings.value("%s_samplerate" % ext,
+                                      44100, type=int)):
+                self.ui.comboBoxSamplerate.setCurrentIndex(i)
+                break
         
-        for bitrate in (64, 80, 96, 112, 128, 160, 192, 224, 256, 320):
-            self.ui.comboBoxMp3Quality.addItem(str(bitrate) + ' Kbits', bitrate)
-        self.ui.comboBoxMp3Quality.setCurrentIndex(8) # 256 KBits by default
-        
-        self.ui.comboBoxBitDepth.addItem('16 Bits', 16)
-        self.ui.comboBoxBitDepth.addItem('24 Bits', 24)
-        if self.mo.extension != 'flac':
-            self.ui.comboBoxBitDepth.addItem('32 Bits (float)', 32)
-            self.ui.comboBoxBitDepth.addItem('64 Bits (float)', 64)
+        if ext == 'mp3':
+            for bitrate in (64, 80, 96, 112, 128, 160, 192, 224, 256, 320):
+                self.ui.comboBoxMp3Quality.addItem(
+                    "%i Kbits" % bitrate, bitrate)
+            for i in range(self.ui.comboBoxMp3Quality.count()):
+                if (self.ui.comboBoxMp3Quality.itemData(i)
+                        == settings.value("%s_quality" % ext,
+                                        256, type=int)):
+                    self.ui.comboBoxMp3Quality.setCurrentIndex(i)
+                    break
+
+        elif ext in ('wav', 'flac'):
+            self.ui.comboBoxBitDepth.addItem('16 Bits', 16)
+            self.ui.comboBoxBitDepth.addItem('24 Bits', 24)
+            if ext != 'flac':
+                self.ui.comboBoxBitDepth.addItem('32 Bits (float)', 32)
+                self.ui.comboBoxBitDepth.addItem('64 Bits (float)', 64)
+            
+            for i in range(self.ui.comboBoxBitDepth.count()):
+                if (self.ui.comboBoxBitDepth.itemData(i)
+                        == settings.value("%s_bitdepth" % ext, 16, type=int)):
+                    self.ui.comboBoxBitDepth.setCurrentIndex(i)
+                    break
+                
+        elif ext == 'ogg':
+            self.ui.spinBoxOggQuality.setValue(
+                settings.value("%s_quality" % ext, 7, type=int))
 
         self.ui.checkBoxSamplerate.stateChanged.connect(
             self.ui.comboBoxSamplerate.setEnabled)
@@ -331,14 +376,29 @@ class FirstDialog(QDialog):
                     len(self.mo.arg_files), len(self.mo.arg_files)))
             
         else:
+            is_video = False
+            media_info = MediaInfo.parse(self.mo.arg_files[0])
+            for track in media_info.tracks:
+                if track.track_type == "Video":
+                    is_video = True
+                    break
+            
             if len(self.mo.arg_files) <= 5:
                 label = "<p>"
                 if self.mo.mode == MODE_ONE_FILE:
-                    label += self.tr("Convert to %s audio file") % upper_ext
+                    if is_video:
+                        label += self.tr("Extract to %s audio tracks from video file") \
+                            % upper_ext
+                    else:
+                        label += self.tr("Convert to %s audio file") % upper_ext
                     label += "<br><span style=\" font-style:italic;\">%s</span></p>" \
                         % limit_str(home_clean(self.mo.input_common_path))
                 else:
-                    label += self.tr("Convert to %s audio files") % upper_ext
+                    if is_video:
+                        label += self.tr("Extract to %s audio tracks from video files") \
+                            % upper_ext
+                    else:
+                        label += self.tr("Convert to %s audio files") % upper_ext
                     label += "<br><span style=\" font-style:italic;\">"
                     label += '<br>'.join(
                         ["%s" % limit_str(home_clean(a)) for a in self.mo.arg_files])
@@ -474,6 +534,51 @@ class FirstDialog(QDialog):
             args += ['-ar', str(self.ui.comboBoxSamplerate.currentData())]
 
         return args
+
+    def get_video_mode(self)->int:
+        if self.mo.mode != MODE_FOLDERS:
+            return MODE_VIDEO_EXTRACT
+        
+        if self.ui.checkBoxAudio.isChecked():
+            if self.ui.checkBoxVideo.isChecked():
+                return MODE_VIDEO_EXTRACT
+            return MODE_VIDEO_COPY
+        return MODE_VIDEO_ONLY
+    
+    def get_max_copy_size(self)->int:
+        size = self.ui.spinBoxCopySize.value()
+        if size < 1:
+            # set max_size to -1 to avoid copy of empty files
+            return -1
+            
+        return size * 1024 * 1024
+    
+    def get_parameters(self)->tuple:
+        return (self.get_output_path(),
+                self.get_video_mode(),
+                self.get_max_copy_size(),
+                self.get_process_args())
+    
+    def remember_settings(self, settings):
+        ext = self.mo.extension
+        
+        settings.setValue("%s_samplerate" % ext,
+                          self.ui.comboBoxSamplerate.currentData())
+        
+        if ext in ('wav', 'flac'):
+            settings.setValue("%s_bitdepth" % ext,
+                              self.ui.comboBoxBitDepth.currentData())
+        elif ext == 'ogg':
+            settings.setValue("%s_quality" % ext,
+                              self.ui.spinBoxOggQuality.value())
+        elif ext == 'mp3':
+            settings.setValue("%s_quality" % ext,
+                              self.ui.comboBoxMp3Quality.currentData())
+        
+        if self.mo.mode == MODE_FOLDERS:
+            settings.setValue("video_mode", self.get_video_mode())
+            settings.setValue("max_copy_size", self.ui.spinBoxCopySize.value())
+        
     
 def main_script():
     if len(sys.argv) < 3:
@@ -497,6 +602,8 @@ def main_script():
     app = QApplication(sys.argv)
     app.setWindowIcon(QIcon.fromTheme(EXTENSIONS[extension]))
     
+    settings = QSettings()
+    
     ### Translation process
     locale = QLocale.system().name()
     appTranslator = QTranslator()
@@ -505,26 +612,30 @@ def main_script():
     if appTranslator.load("%s/locale/converter_%s" % (code_root, locale)):
         app.installTranslator(appTranslator)
     
-    dialog = FirstDialog(main_object)
+    dialog = FirstDialog(main_object, settings)
     dialog.exec()
     if not dialog.result():
         sys.exit(0)
     
-    progress_dialog = ProgressDialog(main_object)
+    dialog.remember_settings(settings)
+    
+    progress_dialog = ProgressDialog(main_object, settings)
     main_object.progress_dialog = progress_dialog
-    main_object.output_common_path = dialog.get_output_path()
-    main_object.process_args = dialog.get_process_args()
+    main_object.read_parameters(dialog.get_parameters())
     main_object.start_next_process()
     progress_dialog.exec()
+    
+    close_terminal = progress_dialog.close_terminal_at_end()
+    terminal_end_translated = progress_dialog.get_terminal_end_translated()
+    settings.setValue('close_terminal', close_terminal)
     
     walk_thread.join()
     app.quit()
     
     if main_object.files_error_indexes:
-        sys.stderr.write(app.tr("Some errors appears, "))
-    if (main_object.files_error_indexes
-            or not progress_dialog.close_terminal_at_end()):
-        sys.stderr.write(app.tr("Press Enter to close this terminal:"))
+        sys.stderr.write(terminal_end_translated[0])
+    if main_object.files_error_indexes or not close_terminal:
+        sys.stderr.write(terminal_end_translated[1])
         input()
 
 if __name__ == '__main__':

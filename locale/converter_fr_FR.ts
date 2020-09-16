@@ -127,37 +127,37 @@
         <translation type="obsolete">&lt;p&gt;Convertir les fichiers audios du dossier </translation>
     </message>
     <message>
-        <location filename="../src/converter.py" line="325"/>
+        <location filename="../src/converter.py" line="370"/>
         <source>Convert to %s audio files in folder</source>
         <translation>Convertir en %s les fichiers audios du dossier</translation>
     </message>
     <message>
-        <location filename="../src/converter.py" line="328"/>
+        <location filename="../src/converter.py" line="373"/>
         <source>Convert to %s audio files in folders</source>
         <translation>Convertir en %s les fichiers audios des dossiers</translation>
     </message>
     <message>
-        <location filename="../src/converter.py" line="335"/>
+        <location filename="../src/converter.py" line="380"/>
         <source>Convert to %s audio files in %i folders</source>
         <translation>Convertir en %s les fichiers audios de %i dossiers</translation>
     </message>
     <message>
-        <location filename="../src/converter.py" line="342"/>
+        <location filename="../src/converter.py" line="398"/>
         <source>Convert to %s audio file</source>
         <translation>Convertir en %s le fichier audio</translation>
     </message>
     <message>
-        <location filename="../src/converter.py" line="346"/>
+        <location filename="../src/converter.py" line="406"/>
         <source>Convert to %s audio files</source>
         <translation>Convertir en %s les fichiers audios</translation>
     </message>
     <message>
-        <location filename="../src/converter.py" line="352"/>
+        <location filename="../src/converter.py" line="412"/>
         <source>Convert %i audio files to %s</source>
         <translation>Convertir %i fichiers audios en %s</translation>
     </message>
     <message>
-        <location filename="../src/converter.py" line="374"/>
+        <location filename="../src/converter.py" line="434"/>
         <source>%s Conversion</source>
         <translation>Conversion en %s</translation>
     </message>
@@ -167,62 +167,95 @@
         <translation type="obsolete">Convertir en %s versâ¦</translation>
     </message>
     <message>
-        <location filename="../src/converter.py" line="395"/>
+        <location filename="../src/converter.py" line="455"/>
         <source>%s Audio files</source>
         <translation>Fichiers audios %s</translation>
     </message>
     <message>
-        <location filename="../src/converter.py" line="408"/>
+        <location filename="../src/converter.py" line="468"/>
         <source>Folder where files will be converted to %s</source>
         <translation>Dossier dans lequel les fichiers audios seront convertis en %s</translation>
     </message>
     <message>
-        <location filename="../src/converter.py" line="420"/>
+        <location filename="../src/converter.py" line="480"/>
         <source>Unwritable Path</source>
         <translation>Chemin non inscriptible</translation>
     </message>
     <message>
-        <location filename="../src/converter.py" line="420"/>
+        <location filename="../src/converter.py" line="480"/>
         <source>%s is not writable, please choose a writable path.</source>
         <translation>%s n&apos;est pas inscriptible, choisissez un emplacement inscriptible.</translation>
     </message>
     <message>
-        <location filename="../src/converter.py" line="427"/>
+        <location filename="../src/converter.py" line="487"/>
         <source>Wrong folder</source>
         <translation>Mauvais dossier</translation>
     </message>
     <message>
-        <location filename="../src/converter.py" line="427"/>
+        <location filename="../src/converter.py" line="487"/>
         <source>Impossible. Folder %s is in %s which is part of the selection</source>
         <translation>Impossible. Le dossier %s est dans %s qui est une partie de la sélection</translation>
     </message>
     <message>
-        <location filename="../src/converter.py" line="436"/>
+        <location filename="../src/converter.py" line="496"/>
         <source>Output folder:</source>
         <translation>Dossier de sortie:</translation>
     </message>
     <message>
-        <location filename="../src/converter.py" line="438"/>
+        <location filename="../src/converter.py" line="498"/>
         <source>Output file:</source>
         <translation>Fichier de sortie:</translation>
     </message>
     <message>
-        <location filename="../src/converter.py" line="395"/>
+        <location filename="../src/converter.py" line="455"/>
         <source>Convert to %s to...</source>
         <translation>Convertir en %s vers...</translation>
+    </message>
+    <message>
+        <location filename="../src/converter.py" line="395"/>
+        <source>Extract to %s audio tracks from video file</source>
+        <translation>Extraire en %s les pistes audio du fichier video</translation>
+    </message>
+    <message>
+        <location filename="../src/converter.py" line="403"/>
+        <source>Extract to %s audio tracks from video files</source>
+        <translation>Extraire en %s les pistes audios des fichiers videos</translation>
+    </message>
+</context>
+<context>
+    <name>ProgressDialog</name>
+    <message>
+        <location filename="../src/converter.py" line="265"/>
+        <source>Conversion to %s...</source>
+        <translation>Conversion en %s...</translation>
+    </message>
+    <message>
+        <location filename="../src/converter.py" line="283"/>
+        <source>Treating file %i/%i</source>
+        <translation>Traitement du fichier %i/%i</translation>
+    </message>
+    <message>
+        <location filename="../src/converter.py" line="293"/>
+        <source>Some errors appears, </source>
+        <translation>Des erreurs sont apparues, </translation>
+    </message>
+    <message>
+        <location filename="../src/converter.py" line="293"/>
+        <source>Press Enter to close this terminal:</source>
+        <translation>Tapez Entrée pour fermer ce terminal:</translation>
     </message>
 </context>
 <context>
     <name>app</name>
     <message>
-        <location filename="../src/converter.py" line="531"/>
+        <location filename="../src/converter.py" line="637"/>
         <source>Some errors appears, </source>
-        <translation>Des erreurs sont apparues, </translation>
+        <translation type="obsolete">Des erreurs sont apparues, </translation>
     </message>
     <message>
-        <location filename="../src/converter.py" line="534"/>
+        <location filename="../src/converter.py" line="639"/>
         <source>Press Enter to close this terminal:</source>
-        <translation>Tapez Entrée pour fermer ce terminal:</translation>
+        <translation type="obsolete">Tapez Entrée pour fermer ce terminal:</translation>
     </message>
 </context>
 </TS>

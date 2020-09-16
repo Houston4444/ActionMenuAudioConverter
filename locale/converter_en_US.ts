@@ -121,97 +121,120 @@
 <context>
     <name>FirstDialog</name>
     <message>
-        <location filename="../src/converter.py" line="325"/>
+        <location filename="../src/converter.py" line="370"/>
         <source>Convert to %s audio files in folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/converter.py" line="328"/>
+        <location filename="../src/converter.py" line="373"/>
         <source>Convert to %s audio files in folders</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/converter.py" line="335"/>
+        <location filename="../src/converter.py" line="380"/>
         <source>Convert to %s audio files in %i folders</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/converter.py" line="342"/>
+        <location filename="../src/converter.py" line="398"/>
         <source>Convert to %s audio file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/converter.py" line="346"/>
+        <location filename="../src/converter.py" line="406"/>
         <source>Convert to %s audio files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/converter.py" line="352"/>
+        <location filename="../src/converter.py" line="412"/>
         <source>Convert %i audio files to %s</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/converter.py" line="374"/>
+        <location filename="../src/converter.py" line="434"/>
         <source>%s Conversion</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/converter.py" line="395"/>
+        <location filename="../src/converter.py" line="455"/>
         <source>%s Audio files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/converter.py" line="408"/>
+        <location filename="../src/converter.py" line="468"/>
         <source>Folder where files will be converted to %s</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/converter.py" line="420"/>
+        <location filename="../src/converter.py" line="480"/>
         <source>Unwritable Path</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/converter.py" line="420"/>
+        <location filename="../src/converter.py" line="480"/>
         <source>%s is not writable, please choose a writable path.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/converter.py" line="427"/>
+        <location filename="../src/converter.py" line="487"/>
         <source>Wrong folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/converter.py" line="427"/>
+        <location filename="../src/converter.py" line="487"/>
         <source>Impossible. Folder %s is in %s which is part of the selection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/converter.py" line="436"/>
+        <location filename="../src/converter.py" line="496"/>
         <source>Output folder:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/converter.py" line="438"/>
+        <location filename="../src/converter.py" line="498"/>
         <source>Output file:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/converter.py" line="395"/>
+        <location filename="../src/converter.py" line="455"/>
         <source>Convert to %s to...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/converter.py" line="395"/>
+        <source>Extract to %s audio tracks from video file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/converter.py" line="403"/>
+        <source>Extract to %s audio tracks from video files</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ProgressDialog</name>
+    <message>
+        <location filename="../src/converter.py" line="265"/>
+        <source>Conversion to %s...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/converter.py" line="283"/>
+        <source>Treating file %i/%i</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/converter.py" line="293"/>
+        <source>Some errors appears, </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/converter.py" line="293"/>
+        <source>Press Enter to close this terminal:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>app</name>
-    <message>
-        <location filename="../src/converter.py" line="531"/>
-        <source>Some errors appears, </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/converter.py" line="534"/>
-        <source>Press Enter to close this terminal:</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 </TS>
