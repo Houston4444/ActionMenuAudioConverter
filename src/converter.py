@@ -61,6 +61,7 @@ class MainObject:
     max_copy_size = 1024 * 1024 * 10
     _walk_finished = False
     _running_index = -1
+    output_is_writable = False
     
     def __init__(self, extension, arg_files):
         self.extension = extension
@@ -89,10 +90,25 @@ class MainObject:
             self.input_common_path = os.path.commonpath(arg_files)
         
         if self.mode == MODE_ONE_FILE:
-            self.output_common_path = file_path_convert(
-                self.extension, self.input_common_path, [])
+            file_no_ext = self.input_common_path
+            if '.' in os.path.basename(self.input_common_path):
+                file_no_ext = self.input_common_path.rpartition('.')[0]
+
+            output_file = file_no_ext + '.' + self.extension
+            
+            i=1
+            while os.path.exists(output_file):
+                output_file = '%s (%i).%s' % (file_no_ext, i, self.extension)
+                i+=1
+            
+            self.output_common_path = output_file
+            self.output_is_writable = bool(
+                os.access(os.path.dirname(self.output_common_path), os.W_OK))
+            
         elif self.mode == MODE_MANY_FILES:
             self.output_common_path = self.input_common_path
+            self.output_is_writable = bool(
+                os.access(self.output_common_path, os.W_OK))
         elif self.mode == MODE_FOLDERS:
             self.output_common_path = "%s (%s)" % (
                 self.input_common_path, self.extension)
@@ -102,6 +118,9 @@ class MainObject:
                 self.output_common_path = "%s (%s) (%i)" % (
                     self.input_common_path, self.extension, n)
                 n += 1
+            
+            self.output_is_writable = bool(
+                os.access(os.path.dirname(self.output_common_path), os.W_OK))
     
     def arg_files_len(self):
         return len(self.arg_files)
@@ -410,8 +429,12 @@ class FirstDialog(QDialog):
             self.ui.groupBoxFolder.setVisible(False)
             
         self.ui.labelPresentation.setText(label)
-            
-        self.set_output_path(self.mo.output_common_path)
+
+        if self.mo.output_is_writable:
+            self.set_output_path(self.mo.output_common_path)
+        else:
+            # simulate a click on the path button if output is not writable
+            self.tool_button_output_path_clicked()
         
         if self.mo.extension != 'ogg':
             self.ui.checkBoxOggQuality.setVisible(False)
@@ -485,7 +508,7 @@ class FirstDialog(QDialog):
         
         self.set_output_path(path)
     
-    def set_output_path(self, path):        
+    def set_output_path(self, path):
         path_label = "<p><strong>%s</strong><br/>" % self.tr("Output folder:")
         if self.mo.mode == MODE_ONE_FILE:
             path_label = "<p><strong>%s</strong><br/>" % self.tr("Output file:")
