@@ -51,13 +51,13 @@ fi
 # execute the good terminal with good arguments
 case $terminal in
     gnome-terminal )
-        exec gnome-terminal --hide-menubar -e "$main_command" "$@"
+        exec gnome-terminal --hide-menubar -- "$main_command" "$@"
     ;;
     konsole )
         exec konsole --hide-tabbar --hide-menubar -p tabtitle="$terminal_title" -e "$main_command" "$@"
     ;;
     mate-terminal )
-        exec mate-terminal --hide-menubar --title "$terminal_title" -e "$main_command" "$@"
+        exec mate-terminal --hide-menubar --title "$terminal_title" -- "$main_command" "$@"
     ;;
     xfce4-terminal )
         exec xfce4-terminal --hide-menubar --hide-toolbar -T "$terminal_title" -e "$main_command" "$@"
