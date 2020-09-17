@@ -16,7 +16,7 @@
     <message>
         <location filename="../resources/ui/first_dialog.ui" line="75"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;44.100 KHz is used for Audio CD.&lt;br/&gt;48.000 KHz is commonly used for video.&lt;/p&gt;&lt;p&gt;Audio quality and file size increases with the value.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Les CD Audios utilisent une fréquence d&apos;échantillonnage de 44.100 KHz.&lt;br/&gt;Pour la video, on utilise généralement le 48.000 KHz.&lt;/p&gt;&lt;p&gt;La qualité audio et la taille du fichier augmentent avec cette valeur.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="obsolete">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Les CD Audios utilisent une fréquence d&apos;échantillonnage de 44.100 KHz.&lt;br/&gt;Pour la video, on utilise généralement le 48.000 KHz.&lt;/p&gt;&lt;p&gt;La qualité audio et la taille du fichier augmentent avec cette valeur.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../resources/ui/progress.ui" line="95"/>
@@ -24,57 +24,57 @@
         <translation>:</translation>
     </message>
     <message>
-        <location filename="../resources/ui/first_dialog.ui" line="96"/>
+        <location filename="../resources/ui/first_dialog.ui" line="99"/>
         <source>Change quality to</source>
         <translation>Changer la qualité pour</translation>
     </message>
     <message>
-        <location filename="../resources/ui/first_dialog.ui" line="103"/>
+        <location filename="../resources/ui/first_dialog.ui" line="106"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Check it if you want to specify the samplerate of the converted file(s).&lt;/p&gt;&lt;p&gt;If you don&apos;t check it, converted files will have the same samplerate as input files.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cochez cette case si vous voulez spécifier la fréquence d&apos;échantillonnage des fichiers convertis.&lt;/p&gt;&lt;p&gt;Sinon, les fichiers convertis auront la même fréquence d&apos;échantillonage que les fichiers en entrée.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../resources/ui/first_dialog.ui" line="109"/>
+        <location filename="../resources/ui/first_dialog.ui" line="112"/>
         <source>Change samplerate to</source>
         <translation>Changer la fréquence d&apos;échantillonnage</translation>
     </message>
     <message>
-        <location filename="../resources/ui/first_dialog.ui" line="116"/>
+        <location filename="../resources/ui/first_dialog.ui" line="119"/>
         <source>Change quality to </source>
         <translation>Définir la qualité </translation>
     </message>
     <message>
-        <location filename="../resources/ui/first_dialog.ui" line="123"/>
+        <location filename="../resources/ui/first_dialog.ui" line="126"/>
         <source>Change bit depth to</source>
         <translation>Définir la profondeur l&apos;échantillonnage</translation>
     </message>
     <message>
-        <location filename="../resources/ui/first_dialog.ui" line="205"/>
+        <location filename="../resources/ui/first_dialog.ui" line="214"/>
         <source>Mb</source>
         <translation>Mo</translation>
     </message>
     <message>
-        <location filename="../resources/ui/first_dialog.ui" line="218"/>
+        <location filename="../resources/ui/first_dialog.ui" line="227"/>
         <source>Extract audio tracks from video files</source>
         <translation>Extraire les pistes audios des fichiers videos</translation>
     </message>
     <message>
-        <location filename="../resources/ui/first_dialog.ui" line="225"/>
+        <location filename="../resources/ui/first_dialog.ui" line="234"/>
         <source>Convert audio files</source>
         <translation>Convertir les fichiers audios</translation>
     </message>
     <message>
-        <location filename="../resources/ui/first_dialog.ui" line="235"/>
+        <location filename="../resources/ui/first_dialog.ui" line="244"/>
         <source>Copy other files until :</source>
         <translation>Copier les autres fichiers jusqu&apos;à :</translation>
     </message>
     <message>
-        <location filename="../resources/ui/first_dialog.ui" line="275"/>
+        <location filename="../resources/ui/first_dialog.ui" line="284"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="../resources/ui/first_dialog.ui" line="286"/>
+        <location filename="../resources/ui/first_dialog.ui" line="295"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Output folder:&lt;br/&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;~/Music/Didier Barbelavie/&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Dossier de sortie:&lt;br/&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;~/Music/Didier Barbelavie/&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -117,6 +117,26 @@
         <location filename="../resources/ui/progress.ui" line="135"/>
         <source>Close the terminal once it is finished</source>
         <translation>Fermer le terminal une fois que c&apos;est fini</translation>
+    </message>
+    <message>
+        <location filename="../resources/ui/first_dialog.ui" line="56"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Higher is the quality value, higher is the audio quality and the file size.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;Set this value lower than 4 only if you want to bleed someone&apos;s ears.&lt;br/&gt;For a very good restitution, set it to 8 or more.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;La qualité audio et la taille du fichier augmentent avec cette valeur.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;Mettez cette valeur sur moins de 4 uniquement si vous souhaitez saigner les oreilles de quelqu&apos;un.&lt;br/&gt;Pour une très bonne restitution, réglez cette valeur sur 8 ou plus.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../resources/ui/first_dialog.ui" line="78"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Samplerate is the number of points per second.&lt;/p&gt;&lt;p&gt;44.100 KHz is used for Audio CD.&lt;br/&gt;48.000 KHz is commonly used for video.&lt;/p&gt;&lt;p&gt;Audio quality and file size increases with the value.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;La fréquence d&apos;échantillonage correspond au nombre de points (échantillons) par seconde.&lt;/p&gt;&lt;p&gt;44.100 KHz est utilisée pour les CD audios.&lt;br/&gt;48.000 KHz est généralement utilisée pour la vidéo.&lt;/p&gt;&lt;p&gt;La qualité audio et la taille du fichier augmentent avec cette valeur.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../resources/ui/first_dialog.ui" line="150"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Higher is the quality value, higher is the audio quality and the file size.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;Select 128 Kbits or lower only if you want to bleed someone&apos;s ears.&lt;br/&gt;For a good restitution, set it to 256 Kbits or more.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;La qualité audio et la taille du fichier augmentent avec cette valeur.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;choisissez 128 Kbits ou moins uniquement si vous souhaitez saigner les oreilles de quelqu&apos;un.&lt;br/&gt;Pour une bonne restitution, choisissez 256 Kbits ou plus.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../resources/ui/first_dialog.ui" line="160"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Bit depth is the precision of each point (on y axe when x axe represents time).&lt;/p&gt;&lt;p&gt;16Bits is used for Audio CD.&lt;/p&gt;&lt;p&gt;24Bits or higher is recommended for audio Production.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;La profondeur d&apos;échantillonage est la précision de chaque point (en ordonnée quand l&apos;abscisse représente le temps).&lt;/p&gt;&lt;p&gt;16Bits est utilisée pour le CD audio.&lt;/p&gt;&lt;p&gt;24Bits ou plus est recommandé pour la production audio.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -259,6 +279,14 @@
     </message>
 </context>
 <context>
+    <name>djei</name>
+    <message>
+        <location filename="../src/main_object.py" line="60"/>
+        <source>ckockco</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>first_dialog</name>
     <message>
         <location filename="../src/first_dialog.py" line="83"/>
@@ -354,17 +382,17 @@
         <translation type="obsolete">Nouveau fichier audio %s</translation>
     </message>
     <message>
-        <location filename="../src/notifier.py" line="49"/>
+        <location filename="../src/notifier.py" line="53"/>
         <source>%i new %s audio files in</source>
         <translation>%i nouveaux fichiers audios %s dans</translation>
     </message>
     <message>
-        <location filename="../src/notifier.py" line="38"/>
+        <location filename="../src/notifier.py" line="42"/>
         <source>Conversion to %s</source>
         <translation>Conversion en %s</translation>
     </message>
     <message>
-        <location filename="../src/notifier.py" line="45"/>
+        <location filename="../src/notifier.py" line="49"/>
         <source>New %s audio file:</source>
         <translation>Nouveau fichier audio %s :</translation>
     </message>

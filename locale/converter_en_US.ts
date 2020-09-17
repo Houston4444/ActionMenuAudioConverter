@@ -13,67 +13,62 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../resources/ui/first_dialog.ui" line="75"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;44.100 KHz is used for Audio CD.&lt;br/&gt;48.000 KHz is commonly used for video.&lt;/p&gt;&lt;p&gt;Audio quality and file size increases with the value.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../resources/ui/progress.ui" line="95"/>
         <source>:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../resources/ui/first_dialog.ui" line="96"/>
+        <location filename="../resources/ui/first_dialog.ui" line="99"/>
         <source>Change quality to</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../resources/ui/first_dialog.ui" line="103"/>
+        <location filename="../resources/ui/first_dialog.ui" line="106"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Check it if you want to specify the samplerate of the converted file(s).&lt;/p&gt;&lt;p&gt;If you don&apos;t check it, converted files will have the same samplerate as input files.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../resources/ui/first_dialog.ui" line="109"/>
+        <location filename="../resources/ui/first_dialog.ui" line="112"/>
         <source>Change samplerate to</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../resources/ui/first_dialog.ui" line="116"/>
+        <location filename="../resources/ui/first_dialog.ui" line="119"/>
         <source>Change quality to </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../resources/ui/first_dialog.ui" line="123"/>
+        <location filename="../resources/ui/first_dialog.ui" line="126"/>
         <source>Change bit depth to</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../resources/ui/first_dialog.ui" line="205"/>
+        <location filename="../resources/ui/first_dialog.ui" line="214"/>
         <source>Mb</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../resources/ui/first_dialog.ui" line="218"/>
+        <location filename="../resources/ui/first_dialog.ui" line="227"/>
         <source>Extract audio tracks from video files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../resources/ui/first_dialog.ui" line="225"/>
+        <location filename="../resources/ui/first_dialog.ui" line="234"/>
         <source>Convert audio files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../resources/ui/first_dialog.ui" line="235"/>
+        <location filename="../resources/ui/first_dialog.ui" line="244"/>
         <source>Copy other files until :</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../resources/ui/first_dialog.ui" line="275"/>
+        <location filename="../resources/ui/first_dialog.ui" line="284"/>
         <source>...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../resources/ui/first_dialog.ui" line="286"/>
+        <location filename="../resources/ui/first_dialog.ui" line="295"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Output folder:&lt;br/&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;~/Music/Didier Barbelavie/&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -117,6 +112,26 @@
         <source>Close the terminal once it is finished</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../resources/ui/first_dialog.ui" line="56"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Higher is the quality value, higher is the audio quality and the file size.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;Set this value lower than 4 only if you want to bleed someone&apos;s ears.&lt;br/&gt;For a very good restitution, set it to 8 or more.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../resources/ui/first_dialog.ui" line="78"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Samplerate is the number of points per second.&lt;/p&gt;&lt;p&gt;44.100 KHz is used for Audio CD.&lt;br/&gt;48.000 KHz is commonly used for video.&lt;/p&gt;&lt;p&gt;Audio quality and file size increases with the value.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../resources/ui/first_dialog.ui" line="150"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Higher is the quality value, higher is the audio quality and the file size.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;Select 128 Kbits or lower only if you want to bleed someone&apos;s ears.&lt;br/&gt;For a good restitution, set it to 256 Kbits or more.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../resources/ui/first_dialog.ui" line="160"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Bit depth is the precision of each point (on y axe when x axe represents time).&lt;/p&gt;&lt;p&gt;16Bits is used for Audio CD.&lt;/p&gt;&lt;p&gt;24Bits or higher is recommended for audio Production.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ProgressDialog</name>
@@ -134,7 +149,7 @@
 <context>
     <name>djei</name>
     <message>
-        <location filename="../src/main_object.py" line="59"/>
+        <location filename="../src/main_object.py" line="60"/>
         <source>ckockco</source>
         <translation type="unfinished"></translation>
     </message>
@@ -230,17 +245,17 @@
 <context>
     <name>notifications</name>
     <message>
-        <location filename="../src/notifier.py" line="49"/>
+        <location filename="../src/notifier.py" line="53"/>
         <source>%i new %s audio files in</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/notifier.py" line="38"/>
+        <location filename="../src/notifier.py" line="42"/>
         <source>Conversion to %s</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/notifier.py" line="45"/>
+        <location filename="../src/notifier.py" line="49"/>
         <source>New %s audio file:</source>
         <translation type="unfinished"></translation>
     </message>
