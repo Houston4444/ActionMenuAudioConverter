@@ -52,6 +52,9 @@
             <property name="enabled">
              <bool>false</bool>
             </property>
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Higher is the quality value, higher is the audio quality and the file size.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;Set this value lower than 4 only if you want to bleed someone's ears.&lt;br/&gt;For a very good restitution, set it to 8 or more.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
             <property name="alignment">
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
             </property>
@@ -72,7 +75,7 @@
              <bool>false</bool>
             </property>
             <property name="toolTip">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;44.100 KHz is used for Audio CD.&lt;br/&gt;48.000 KHz is commonly used for video.&lt;/p&gt;&lt;p&gt;Audio quality and file size increases with the value.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Samplerate is the number of points per second.&lt;/p&gt;&lt;p&gt;44.100 KHz is used for Audio CD.&lt;br/&gt;48.000 KHz is commonly used for video.&lt;/p&gt;&lt;p&gt;Audio quality and file size increases with the value.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
            </widget>
           </item>
@@ -143,12 +146,18 @@
             <property name="enabled">
              <bool>false</bool>
             </property>
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Higher is the quality value, higher is the audio quality and the file size.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;Select 128 Kbits or lower only if you want to bleed someone's ears.&lt;br/&gt;For a good restitution, set it to 256 Kbits or more.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
            </widget>
           </item>
           <item row="4" column="3">
            <widget class="QComboBox" name="comboBoxBitDepth">
             <property name="enabled">
              <bool>false</bool>
+            </property>
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Bit depth is the precision of each point (on y axe when x axe represents time).&lt;/p&gt;&lt;p&gt;16Bits is used for Audio CD.&lt;/p&gt;&lt;p&gt;24Bits or higher is recommended for audio Production.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
            </widget>
           </item>
