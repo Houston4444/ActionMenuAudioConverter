@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# This is a little script for refresh raysession.pro and update .ts files.
+# This is a little script for refresh converter.pro and update .ts files.
 # TRANSLATOR: You don't need to run it !
 
 contents=""
@@ -19,6 +19,8 @@ done
 cd "$code_root/src/"
 
 for file in *.py;do
+    [[ "$file" =~ ^ui_ ]] && continue
+    
     if cat "$file"|grep -q "_translate\|self.tr(";then
         contents+="SOURCES += ../src/${file}
 "

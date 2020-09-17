@@ -1,12 +1,13 @@
 
 
 import os
-from PyQt5.QtWidgets import QDialog, QFileDialog, QMessageBox
+from PyQt5.QtWidgets import QApplication, QDialog, QFileDialog, QMessageBox
 from pymediainfo import MediaInfo
 
 import main_object as Mo
 import ui_first_dialog
 
+_translate = QApplication.translate
 
 class FirstDialog(QDialog):
     def __init__(self, main_object, settings):
@@ -79,17 +80,17 @@ class FirstDialog(QDialog):
             if len(self.mo.arg_files) <= 5:
                 label = "<p>"
                 if len(self.mo.arg_files) == 1:
-                    label += self.tr("Convert to %s audio files in folder") \
+                    label += _translate('first_dialog', "Convert to %s audio files in folder") \
                         % upper_ext
                 else:
-                    label += self.tr("Convert to %s audio files in folders") \
+                    label += _translate('first_dialog', "Convert to %s audio files in folders") \
                         % upper_ext
                 label += "<br><span style=\" font-style:italic;\">"
                 label += '<br>'.join(
                     ["%s" % self.mo.shorter_path(a) for a in self.mo.arg_files])
                 label += "</span></p>"
             else:
-                label = self.tr("Convert to %s audio files in %i folders" % (
+                label = _translate('first_dialog', "Convert to %s audio files in %i folders" % (
                     len(self.mo.arg_files), len(self.mo.arg_files)))
             
         else:
@@ -104,24 +105,24 @@ class FirstDialog(QDialog):
                 label = "<p>"
                 if self.mo.mode == Mo.MODE_ONE_FILE:
                     if is_video:
-                        label += self.tr("Extract to %s audio tracks from video file") \
+                        label += _translate('first_dialog', "Extract to %s audio tracks from video file") \
                             % upper_ext
                     else:
-                        label += self.tr("Convert to %s audio file") % upper_ext
+                        label += _translate('first_dialog', "Convert to %s audio file") % upper_ext
                     label += "<br><span style=\" font-style:italic;\">%s</span></p>" \
                         % self.mo.shorter_path(self.mo.input_common_path)
                 else:
                     if is_video:
-                        label += self.tr("Extract to %s audio tracks from video files") \
+                        label += _translate('first_dialog', "Extract to %s audio tracks from video files") \
                             % upper_ext
                     else:
-                        label += self.tr("Convert to %s audio files") % upper_ext
+                        label += _translate('first_dialog', "Convert to %s audio files") % upper_ext
                     label += "<br><span style=\" font-style:italic;\">"
                     label += '<br>'.join(
                         ["%s" % self.mo.shorter_path(a) for a in self.mo.arg_files])
                     label += "</span></p>"
             else:
-                label = self.tr("Convert %i audio files to %s") % (
+                label = _translate('first_dialog', "Convert %i audio files to %s") % (
                     len(self.mo.arg_files), upper_ext)
                     
             self.ui.groupBoxFolder.setVisible(False)
@@ -143,7 +144,7 @@ class FirstDialog(QDialog):
             self.ui.labelColonBitDepth.setVisible(False)
             self.ui.comboBoxBitDepth.setVisible(False)
         
-        self.setWindowTitle(self.tr("%s Conversion") % upper_ext)
+        self.setWindowTitle(_translate('first_dialog', "%s Conversion") % upper_ext)
         self.resize(0, 0)
         
     def video_box_changed(self, state):
@@ -162,10 +163,10 @@ class FirstDialog(QDialog):
             if self.mo.mode == Mo.MODE_ONE_FILE:
                 path, ok = QFileDialog.getSaveFileName(
                     self,
-                    self.tr("Convert to %s to...") % self.mo.extension.upper(),
+                    _translate('first_dialog', "Convert to %s to...") % self.mo.extension.upper(),
                     self.mo.output_common_path,
                     "%s(*.%s)" % (
-                        self.tr("%s Audio files") % self.mo.extension.upper(),
+                        _translate('first_dialog', "%s Audio files") % self.mo.extension.upper(),
                         self.mo.extension))
                 
                 if not ok:
@@ -175,7 +176,7 @@ class FirstDialog(QDialog):
             else:
                 path = QFileDialog.getExistingDirectory(
                     self,
-                    self.tr("Folder where files will be converted to %s") 
+                    _translate('first_dialog', "Folder where files will be converted to %s") 
                         % self.mo.extension.upper(),
                     self.mo.output_common_path)
                 
@@ -185,15 +186,15 @@ class FirstDialog(QDialog):
                 check_path = path
             
             if not os.access(check_path, os.W_OK):
-                QMessageBox.critical(self, self.tr("Unwritable Path"),
-                    self.tr("%s is not writable, please choose a writable path.") % (path))
+                QMessageBox.critical(self, _translate('first_dialog', "Unwritable Path"),
+                    _translate('first_dialog', "%s is not writable, please choose a writable path.") % (path))
                 continue
             
             if self.mo.mode == Mo.MODE_FOLDERS:
                 for folder in self.mo.arg_files:
                     if folder == path or path.startswith(folder + '/'):
-                        QMessageBox.critical(self, self.tr("Wrong folder"), 
-                            self.tr("Impossible. Folder %s is in %s which is part of the selection")
+                        QMessageBox.critical(self, _translate('first_dialog', "Wrong folder"), 
+                            _translate('first_dialog', "Impossible. Folder %s is in %s which is part of the selection")
                                 % (path, folder))
                         continue
             break
@@ -201,9 +202,9 @@ class FirstDialog(QDialog):
         self.set_output_path(path)
     
     def set_output_path(self, path):
-        path_label = "<p><strong>%s</strong><br/>" % self.tr("Output folder:")
+        path_label = "<p><strong>%s</strong><br/>" % _translate('first_dialog', "Output folder:")
         if self.mo.mode == Mo.MODE_ONE_FILE:
-            path_label = "<p><strong>%s</strong><br/>" % self.tr("Output file:")
+            path_label = "<p><strong>%s</strong><br/>" % _translate('first_dialog', "Output file:")
         path_label += "<span style=\" font-style:italic;\">"
         path_label += self.mo.shorter_path(path)
         if not self.mo.mode == Mo.MODE_ONE_FILE:
@@ -293,4 +294,3 @@ class FirstDialog(QDialog):
         if self.mo.mode == Mo.MODE_FOLDERS:
             settings.setValue("video_mode", self.get_video_mode())
             settings.setValue("max_copy_size", self.ui.spinBoxCopySize.value())
- 

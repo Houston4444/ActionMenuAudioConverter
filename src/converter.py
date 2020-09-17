@@ -11,6 +11,7 @@ from PyQt5.QtCore import QLocale, QTranslator, QSettings
 import main_object as Mo
 import first_dialog
 import progress_dialog
+import notifier
 
 
 def main_script():
@@ -46,7 +47,16 @@ def main_script():
     if app_translator.load("%s/locale/converter_%s" % (code_root, locale)):
         app.installTranslator(app_translator)
     
+    _translate = QApplication.translate
+    
     dialog = first_dialog.FirstDialog(main_obj, settings)
+    label = _translate('terminal', "Conversion to %s") % extension.upper()
+    label += '\n'
+    label += _translate('terminal',
+        "Please select options in the dialog window and press Ok")
+    label += '\n'
+    sys.stderr.write(label)
+    
     dialog.exec()
     if not dialog.result():
         sys.exit(0)
@@ -60,16 +70,19 @@ def main_script():
     progress_dlg.exec()
     
     close_terminal = progress_dlg.close_terminal_at_end()
-    terminal_end_translated = progress_dlg.get_terminal_end_translated()
     settings.setValue('close_terminal', close_terminal)
     
     walk_thread.join()
     app.quit()
     
+    notif = notifier.Notifier(main_obj)
+    notif.notify()
+    
     if main_obj.files_error_indexes:
-        sys.stderr.write(terminal_end_translated[0])
+        sys.stderr.write(_translate('terminal', "Some errors appears, "))
     if main_obj.files_error_indexes or not close_terminal:
-        sys.stderr.write(terminal_end_translated[1])
+        sys.stderr.write(
+            _translate('terminal', "Press Enter to close this terminal:"))
         input()
 
 if __name__ == '__main__':

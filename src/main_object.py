@@ -3,7 +3,7 @@ import os
 import shlex
 import sys
 
-from PyQt5.QtCore import QProcess
+from PyQt5.QtCore import QProcess, QCoreApplication
 from pymediainfo import MediaInfo
 
 EXTENSIONS = {'wav': 'audio-x-wav',
@@ -19,6 +19,7 @@ MODE_VIDEO_EXTRACT = 0
 MODE_VIDEO_COPY = 1
 MODE_VIDEO_ONLY = 2
 
+
 class MainObject:
     extension = 'wav'
     mode = MODE_MANY_FILES
@@ -29,6 +30,7 @@ class MainObject:
     _walk_finished = False
     _running_index = -1
     output_is_writable = False
+    audio_converted_count = 0
     
     @staticmethod
     def shorter_path(path: str)->str:
@@ -53,6 +55,8 @@ class MainObject:
         self.process.setProcessChannelMode(QProcess.ForwardedChannels)
         self.process.finished.connect(self.process_finished)
         
+        _translate = QCoreApplication.translate
+        walou = _translate("djei", "ckockco")
         if not arg_files:
             sys.stderr.write("error, missing arguments\n")
             sys.exit(1)
@@ -191,6 +195,8 @@ class MainObject:
     def process_finished(self, exit_code, exit_status):
         if exit_code:
             self.files_error_indexes.append(self._running_index)
+        elif self.process.program() == 'ffmpeg':
+            self.audio_converted_count += 1
         
         if self._running_index + 1 == len(self.true_files):
             if self.progress_dialog:
@@ -262,4 +268,4 @@ class MainObject:
         if self.progress_dialog:
             self.progress_dialog.display_running_file(
                 input_file, output_file,
-                self._running_index, len(self.true_files)) 
+                self._running_index, len(self.true_files))

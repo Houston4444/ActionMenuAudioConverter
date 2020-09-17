@@ -1,9 +1,11 @@
 
-from PyQt5.QtWidgets import QDialog
+from PyQt5.QtWidgets import QApplication, QDialog
 from PyQt5.QtCore import QTimer
 
 import main_object as Mo
 import ui_progress
+
+_translate = QApplication.translate
 
 class ProgressDialog(QDialog):
     def __init__(self, main_object, settings):
@@ -22,7 +24,7 @@ class ProgressDialog(QDialog):
             self.ui.labelStep.setVisible(False)
             self.ui.progressBar.setVisible(False)
         
-        self.ui.labelExtension.setText(self.tr(
+        self.ui.labelExtension.setText(_translate('progress',
             "Conversion to %s...") % self.mo.extension.upper())
         
         self.ui.checkBox.setChecked(
@@ -41,7 +43,7 @@ class ProgressDialog(QDialog):
                              running_index: int, total: int):
         self.ui.labelSource.setText(self.mo.shorter_path(input_file))
         self.ui.labelDestination.setText(self.mo.shorter_path(output_file))
-        self.ui.labelStep.setText(self.tr(
+        self.ui.labelStep.setText(_translate('progress',
             "Treating file %i/%i") % (running_index + 1, total))
         self.ui.progressBar.setMaximum(total)
         self.ui.progressBar.setValue(running_index)
