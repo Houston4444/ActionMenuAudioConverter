@@ -39,8 +39,8 @@ class FirstDialog(QDialog):
                     "%i Kbits" % bitrate, bitrate)
             for i in range(self.ui.comboBoxMp3Quality.count()):
                 if (self.ui.comboBoxMp3Quality.itemData(i)
-                        == settings.value("%s_quality" % ext,
-                                        256, type=int)):
+                        == settings.value(
+                            "%s_quality" % ext, 256, type=int)):
                     self.ui.comboBoxMp3Quality.setCurrentIndex(i)
                     break
 
@@ -105,18 +105,25 @@ class FirstDialog(QDialog):
                 label = "<p>"
                 if self.mo.mode == Mo.MODE_ONE_FILE:
                     if is_video:
-                        label += _translate('first_dialog', "Extract to %s audio tracks from video file") \
+                        label += _translate(
+                            'first_dialog',
+                            "Extract to %s audio tracks from video file") \
                             % upper_ext
                     else:
-                        label += _translate('first_dialog', "Convert to %s audio file") % upper_ext
+                        label += _translate(
+                            'first_dialog',
+                            "Convert to %s audio file") % upper_ext
                     label += "<br><span style=\" font-style:italic;\">%s</span></p>" \
                         % self.mo.shorter_path(self.mo.input_common_path)
                 else:
                     if is_video:
-                        label += _translate('first_dialog', "Extract to %s audio tracks from video files") \
+                        label += _translate(
+                            'first_dialog',
+                            "Extract to %s audio tracks from video files") \
                             % upper_ext
                     else:
-                        label += _translate('first_dialog', "Convert to %s audio files") % upper_ext
+                        label += _translate(
+                            'first_dialog', "Convert to %s audio files") % upper_ext
                     label += "<br><span style=\" font-style:italic;\">"
                     label += '<br>'.join(
                         ["%s" % self.mo.shorter_path(a) for a in self.mo.arg_files])
@@ -163,7 +170,8 @@ class FirstDialog(QDialog):
             if self.mo.mode == Mo.MODE_ONE_FILE:
                 path, ok = QFileDialog.getSaveFileName(
                     self,
-                    _translate('first_dialog', "Convert to %s to...") % self.mo.extension.upper(),
+                    _translate('first_dialog', "Convert to %s to...")
+                    % self.mo.extension.upper(),
                     self.mo.output_common_path,
                     "%s(*.%s)" % (
                         _translate('first_dialog', "%s Audio files") % self.mo.extension.upper(),

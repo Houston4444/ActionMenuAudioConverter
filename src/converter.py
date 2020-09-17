@@ -52,8 +52,8 @@ def main_script():
     dialog = first_dialog.FirstDialog(main_obj, settings)
     label = _translate('terminal', "Conversion to %s") % extension.upper()
     label += '\n'
-    label += _translate('terminal',
-        "Please select options in the dialog window and press Ok")
+    label += _translate(
+        'terminal', "Please select options in the dialog window and press Ok")
     label += '\n'
     sys.stderr.write(label)
 
@@ -87,4 +87,3 @@ def main_script():
 
 if __name__ == '__main__':
     main_script()
-
