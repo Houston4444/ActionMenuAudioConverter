@@ -103,4 +103,5 @@ uninstall:
 	rm -f  $(DESTDIR)$(PREFIX)/bin/action_menu_audio_converter.sh
 	rm -rf $(DEST_SOURCE)
 	rm -rf $(DESTDIR)$(PREFIX)/share/kservices5/ServiceMenus/ActionMenuAudioConverter
+	rm -f  $(DESTDIR)$(PREFIX)/share/file-manager/actions/ActionMenuAudioConverter_*.desktop
 
