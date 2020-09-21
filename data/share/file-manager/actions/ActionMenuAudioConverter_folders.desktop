@@ -42,5 +42,6 @@ Name[uk]=Перетворити в
 Name[x-test]=xxConvert Toxx
 Name[zh_CN]=转换为
 Name[zh_TW]=轉換為
-ItemsList=ActionMenuAudioConverter_folders_mp3;ActionMenuAudioConverter_folders_ogg;ActionMenuAudioConverter_folders_wav;ActionMenuAudioConverter_folders_flac;
+ItemsList=ActionMenuAudioConverter_folders_mp3;ActionMenuAudioConverter_folders_wav;ActionMenuAudioConverter_folders_flac;ActionMenuAudioConverter_folders_ogg;
 MimeTypes=inode/directory;
+Name[fr_FR]=Convertir les audios en

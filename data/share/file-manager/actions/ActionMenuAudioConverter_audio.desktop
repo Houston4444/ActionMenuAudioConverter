@@ -42,4 +42,5 @@ Name[uk]=Перетворити в
 Name[x-test]=xxConvert Toxx
 Name[zh_CN]=转换为
 Name[zh_TW]=轉換為
-ItemsList=ActionMenuAudioConverter_audio_wav;ActionMenuAudioConverter_audio_ogg;ActionMenuAudioConverter_audio_flac;ActionMenuAudioConverter_audio_mp3;
+ItemsList=ActionMenuAudioConverter_audio_wav;ActionMenuAudioConverter_audio_flac;ActionMenuAudioConverter_audio_mp3;ActionMenuAudioConverter_audio_ogg;
+Name[fr_FR]=Convertir au format

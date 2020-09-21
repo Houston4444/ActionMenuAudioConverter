@@ -4,4 +4,5 @@ Name=Extract audio track to
 Name[en]=Extract audio track to
 Name[fr]=Extraire la piste audio en
 Name[it]=Estrai la traccia audio in
-ItemsList=ActionMenuAudioConverter_video_mp3;ActionMenuAudioConverter_video_ogg;ActionMenuAudioConverter_video_wav;ActionMenuAudioConverter_video_flac;
+ItemsList=ActionMenuAudioConverter_video_ogg;ActionMenuAudioConverter_video_wav;ActionMenuAudioConverter_video_flac;ActionMenuAudioConverter_video_mp3;
+Name[fr_FR]=Extraire la piste audio en
