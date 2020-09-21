@@ -83,7 +83,7 @@ install:
 	cp -r data/share/kservices5/ServiceMenus/ActionMenuAudioConverter \
 		$(DESTDIR)$(PREFIX)/share/kservices5/ServiceMenus/
 	
-	cp data/share/file-manager/actions/*.desktop \
+	install -m 644 data/share/file-manager/actions/*.desktop \
 		$(DESTDIR)$(PREFIX)/share/file-manager/actions/
 	
 	# Install main code
