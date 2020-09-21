@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Action
+Icon=audio-x-flac
+ToolbarLabel=flac
+ToolbarLabel[fr]=flac
+Name=flac
+Name[fr]=flac
+Profiles=profile-zero;
+
+[X-Action-Profile profile-zero]
+MimeTypes=video/*;
+Exec=action_menu_audio_converter.sh flac %F
+Name=Default Profile

@@ -74,14 +74,18 @@ install:
 	install -d $(DESTDIR)$(PREFIX)/share/
 	install -d $(DESTDIR)$(PREFIX)/share/kservices5/
 	install -d $(DESTDIR)$(PREFIX)/share/kservices5/ServiceMenus/
-# 	install -d $(DESTDIR)$(PREFIX)/share/kservices5/ServiceMenus/ActionMenuAudioConverter/
+	install -d $(DESTDIR)$(PREFIX)/share/file-manager/
+	install -d $(DESTDIR)$(PREFIX)/share/file-manager/actions/
 	install -d $(DEST_SOURCE)/
 	install -d $(DEST_SOURCE)/locale/
 	
 	# Install KDE ServiceMenus
 	cp -r data/share/kservices5/ServiceMenus/ActionMenuAudioConverter \
 		$(DESTDIR)$(PREFIX)/share/kservices5/ServiceMenus/
-
+	
+	cp data/share/file-manager/actions/*.desktop \
+		$(DESTDIR)$(PREFIX)/share/file-manager/actions/
+	
 	# Install main code
 	cp -r src $(DEST_SOURCE)/
 	

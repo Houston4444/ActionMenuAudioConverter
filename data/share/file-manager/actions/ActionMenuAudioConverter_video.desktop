@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Menu
+Name=Extract audio track to
+Name[en]=Extract audio track to
+Name[fr]=Extraire la piste audio en
+Name[it]=Estrai la traccia audio in
+ItemsList=ActionMenuAudioConverter_video_mp3;ActionMenuAudioConverter_video_ogg;ActionMenuAudioConverter_video_wav;ActionMenuAudioConverter_video_flac;

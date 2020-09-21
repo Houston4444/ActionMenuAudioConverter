@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Action
+ToolbarLabel=ogg
+ToolbarLabel[fr]=ogg
+Name=ogg
+Name[fr]=ogg
+Profiles=profile-zero;
+Icon=audio-x-generic
+
+[X-Action-Profile profile-zero]
+Exec=action_menu_audio_converter.sh ogg %F
+Name=Default Profile
+MimeTypes=audio/*;

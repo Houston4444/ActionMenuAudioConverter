@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Action
+Icon=audio-mp3
+ToolbarLabel=mp3
+ToolbarLabel[fr]=mp3
+Name=mp3
+Name[fr]=mp3
+Profiles=profile-zero;
+
+[X-Action-Profile profile-zero]
+MimeTypes=audio/*;
+Exec=action_menu_audio_converter.sh mp3 %F
+Name=Default Profile
