@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Action
-Icon=audio-x-flac
+Icon=audio-x-generic
 ToolbarLabel=flac
 ToolbarLabel[fr]=flac
 Name=flac
