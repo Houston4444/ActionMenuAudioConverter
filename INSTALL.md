@@ -37,6 +37,7 @@ On Debian and Ubuntu, use these commands to install all build dependencies: <br/
 To run it, you'll additionally need:
 
  - python3-pymediainfo
+ - ffmpeg
 
  
 To make menus appears in Caja (MATE file manager), you also need:
