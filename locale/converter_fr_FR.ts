@@ -16,7 +16,7 @@
     <message>
         <location filename="../resources/ui/first_dialog.ui" line="75"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;44.100 KHz is used for Audio CD.&lt;br/&gt;48.000 KHz is commonly used for video.&lt;/p&gt;&lt;p&gt;Audio quality and file size increases with the value.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="obsolete">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Les CD Audios utilisent une fréquence d&apos;échantillonnage de 44.100 KHz.&lt;br/&gt;Pour la video, on utilise généralement le 48.000 KHz.&lt;/p&gt;&lt;p&gt;La qualité audio et la taille du fichier augmentent avec cette valeur.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="obsolete">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Les CD Audio utilisent une fréquence d&apos;échantillonnage de 44.100 KHz.&lt;br/&gt;Pour la video, on utilise généralement le 48.000 KHz.&lt;/p&gt;&lt;p&gt;La qualité audio et la taille du fichier augmentent avec cette valeur.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../resources/ui/progress.ui" line="95"/>
@@ -46,7 +46,7 @@
     <message>
         <location filename="../resources/ui/first_dialog.ui" line="126"/>
         <source>Change bit depth to</source>
-        <translation>Définir la profondeur l&apos;échantillonnage</translation>
+        <translation>Définir la profondeur d&apos;échantillonnage</translation>
     </message>
     <message>
         <location filename="../resources/ui/first_dialog.ui" line="214"/>
@@ -56,12 +56,12 @@
     <message>
         <location filename="../resources/ui/first_dialog.ui" line="227"/>
         <source>Extract audio tracks from video files</source>
-        <translation>Extraire les pistes audios des fichiers videos</translation>
+        <translation>Extraire les pistes audio des fichiers vidéo</translation>
     </message>
     <message>
         <location filename="../resources/ui/first_dialog.ui" line="234"/>
         <source>Convert audio files</source>
-        <translation>Convertir les fichiers audios</translation>
+        <translation>Convertir les fichiers audio</translation>
     </message>
     <message>
         <location filename="../resources/ui/first_dialog.ui" line="244"/>
@@ -126,7 +126,7 @@
     <message>
         <location filename="../resources/ui/first_dialog.ui" line="78"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Samplerate is the number of points per second.&lt;/p&gt;&lt;p&gt;44.100 KHz is used for Audio CD.&lt;br/&gt;48.000 KHz is commonly used for video.&lt;/p&gt;&lt;p&gt;Audio quality and file size increases with the value.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;La fréquence d&apos;échantillonage correspond au nombre de points (échantillons) par seconde.&lt;/p&gt;&lt;p&gt;44.100 KHz est utilisée pour les CD audios.&lt;br/&gt;48.000 KHz est généralement utilisée pour la vidéo.&lt;/p&gt;&lt;p&gt;La qualité audio et la taille du fichier augmentent avec cette valeur.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;La fréquence d&apos;échantillonage correspond au nombre de points (échantillons) par seconde.&lt;/p&gt;&lt;p&gt;44.100 KHz est utilisée pour les CD audio.&lt;br/&gt;48.000 KHz est généralement utilisée pour la vidéo.&lt;/p&gt;&lt;p&gt;La qualité audio et la taille du fichier augmentent avec cette valeur.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../resources/ui/first_dialog.ui" line="150"/>
@@ -144,22 +144,22 @@
     <message>
         <location filename="../src/converter.py" line="317"/>
         <source>&lt;p&gt;Convert audio files in folder </source>
-        <translation type="obsolete">&lt;p&gt;Convertir les fichiers audios du dossier </translation>
+        <translation type="obsolete">&lt;p&gt;Convertir les fichiers audio du dossier </translation>
     </message>
     <message>
         <location filename="../src/converter.py" line="370"/>
         <source>Convert to %s audio files in folder</source>
-        <translation type="obsolete">Convertir en %s les fichiers audios du dossier</translation>
+        <translation type="obsolete">Convertir en %s les fichiers audio du dossier</translation>
     </message>
     <message>
         <location filename="../src/converter.py" line="373"/>
         <source>Convert to %s audio files in folders</source>
-        <translation type="obsolete">Convertir en %s les fichiers audios des dossiers</translation>
+        <translation type="obsolete">Convertir en %s les fichiers audio des dossiers</translation>
     </message>
     <message>
         <location filename="../src/converter.py" line="380"/>
         <source>Convert to %s audio files in %i folders</source>
-        <translation type="obsolete">Convertir en %s les fichiers audios de %i dossiers</translation>
+        <translation type="obsolete">Convertir en %s les fichiers audio de %i dossiers</translation>
     </message>
     <message>
         <location filename="../src/converter.py" line="398"/>
@@ -169,12 +169,12 @@
     <message>
         <location filename="../src/converter.py" line="406"/>
         <source>Convert to %s audio files</source>
-        <translation type="obsolete">Convertir en %s les fichiers audios</translation>
+        <translation type="obsolete">Convertir en %s les fichiers audio</translation>
     </message>
     <message>
         <location filename="../src/converter.py" line="412"/>
         <source>Convert %i audio files to %s</source>
-        <translation type="obsolete">Convertir %i fichiers audios en %s</translation>
+        <translation type="obsolete">Convertir %i fichiers audio en %s</translation>
     </message>
     <message>
         <location filename="../src/converter.py" line="434"/>
@@ -189,12 +189,12 @@
     <message>
         <location filename="../src/converter.py" line="455"/>
         <source>%s Audio files</source>
-        <translation type="obsolete">Fichiers audios %s</translation>
+        <translation type="obsolete">Fichiers audio %s</translation>
     </message>
     <message>
         <location filename="../src/converter.py" line="468"/>
         <source>Folder where files will be converted to %s</source>
-        <translation type="obsolete">Dossier dans lequel les fichiers audios seront convertis en %s</translation>
+        <translation type="obsolete">Dossier dans lequel les fichiers audio seront convertis en %s</translation>
     </message>
     <message>
         <location filename="../src/converter.py" line="480"/>
@@ -219,12 +219,12 @@
     <message>
         <location filename="../src/converter.py" line="496"/>
         <source>Output folder:</source>
-        <translation type="obsolete">Dossier de sortie:</translation>
+        <translation type="obsolete">Dossier de sortie :</translation>
     </message>
     <message>
         <location filename="../src/converter.py" line="498"/>
         <source>Output file:</source>
-        <translation type="obsolete">Fichier de sortie:</translation>
+        <translation type="obsolete">Fichier de sortie :</translation>
     </message>
     <message>
         <location filename="../src/converter.py" line="455"/>
@@ -234,12 +234,12 @@
     <message>
         <location filename="../src/converter.py" line="395"/>
         <source>Extract to %s audio tracks from video file</source>
-        <translation type="obsolete">Extraire en %s les pistes audio du fichier video</translation>
+        <translation type="obsolete">Extraire en %s les pistes audio du fichier vidéo</translation>
     </message>
     <message>
         <location filename="../src/converter.py" line="403"/>
         <source>Extract to %s audio tracks from video files</source>
-        <translation type="obsolete">Extraire en %s les pistes audios des fichiers videos</translation>
+        <translation type="obsolete">Extraire en %s les pistes audio des fichiers vidéo</translation>
     </message>
 </context>
 <context>
@@ -262,7 +262,7 @@
     <message>
         <location filename="../src/progress_dialog.py" line="55"/>
         <source>Press Enter to close this terminal:</source>
-        <translation>Tapez Entrée pour fermer ce terminal:</translation>
+        <translation>Tapez Entrée pour fermer ce terminal :</translation>
     </message>
 </context>
 <context>
@@ -275,7 +275,7 @@
     <message>
         <location filename="../src/converter.py" line="639"/>
         <source>Press Enter to close this terminal:</source>
-        <translation type="obsolete">Tapez Entrée pour fermer ce terminal:</translation>
+        <translation type="obsolete">Tapez Entrée pour fermer ce terminal :</translation>
     </message>
 </context>
 <context>
@@ -291,17 +291,17 @@
     <message>
         <location filename="../src/first_dialog.py" line="83"/>
         <source>Convert to %s audio files in folder</source>
-        <translation>Convertir en %s les fichiers audios du dossier</translation>
+        <translation>Convertir en %s les fichiers audio du dossier</translation>
     </message>
     <message>
         <location filename="../src/first_dialog.py" line="86"/>
         <source>Convert to %s audio files in folders</source>
-        <translation>Convertir en %s les fichiers audios des dossiers</translation>
+        <translation>Convertir en %s les fichiers audio des dossiers</translation>
     </message>
     <message>
         <location filename="../src/first_dialog.py" line="108"/>
         <source>Extract to %s audio tracks from video file</source>
-        <translation>Extraire en %s les pistes audio du fichier video</translation>
+        <translation>Extraire en %s les pistes audio du fichier vidéo</translation>
     </message>
     <message>
         <location filename="../src/first_dialog.py" line="111"/>
@@ -311,17 +311,17 @@
     <message>
         <location filename="../src/first_dialog.py" line="116"/>
         <source>Extract to %s audio tracks from video files</source>
-        <translation>Extraire en %s les pistes audios des fichiers videos</translation>
+        <translation>Extraire en %s les pistes audio des fichiers vidéo</translation>
     </message>
     <message>
         <location filename="../src/first_dialog.py" line="119"/>
         <source>Convert to %s audio files</source>
-        <translation>Convertir en %s les fichiers audios</translation>
+        <translation>Convertir en %s les fichiers audio</translation>
     </message>
     <message>
         <location filename="../src/first_dialog.py" line="125"/>
         <source>Convert %i audio files to %s</source>
-        <translation>Convertir %i fichiers audios en %s</translation>
+        <translation>Convertir %i fichiers audio en %s</translation>
     </message>
     <message>
         <location filename="../src/first_dialog.py" line="147"/>
@@ -336,12 +336,12 @@
     <message>
         <location filename="../src/first_dialog.py" line="166"/>
         <source>%s Audio files</source>
-        <translation>Fichiers audios %s</translation>
+        <translation>Fichiers audio %s</translation>
     </message>
     <message>
         <location filename="../src/first_dialog.py" line="179"/>
         <source>Folder where files will be converted to %s</source>
-        <translation>Dossier dans lequel les fichiers audios seront convertis en %s</translation>
+        <translation>Dossier dans lequel les fichiers audio seront convertis en %s</translation>
     </message>
     <message>
         <location filename="../src/first_dialog.py" line="191"/>
@@ -366,12 +366,12 @@
     <message>
         <location filename="../src/first_dialog.py" line="207"/>
         <source>Output folder:</source>
-        <translation>Dossier de sortie:</translation>
+        <translation>Dossier de sortie :</translation>
     </message>
     <message>
         <location filename="../src/first_dialog.py" line="209"/>
         <source>Output file:</source>
-        <translation>Fichier de sortie:</translation>
+        <translation>Fichier de sortie :</translation>
     </message>
 </context>
 <context>
@@ -384,7 +384,7 @@
     <message>
         <location filename="../src/notifier.py" line="53"/>
         <source>%i new %s audio files in</source>
-        <translation>%i nouveaux fichiers audios %s dans</translation>
+        <translation>%i nouveaux fichiers audio %s dans</translation>
     </message>
     <message>
         <location filename="../src/notifier.py" line="42"/>
@@ -420,7 +420,7 @@
     <message>
         <location filename="../src/converter.py" line="84"/>
         <source>Press Enter to close this terminal:</source>
-        <translation>Tapez Entrée pour fermer ce terminal:</translation>
+        <translation>Tapez Entrée pour fermer ce terminal :</translation>
     </message>
     <message>
         <location filename="../src/converter.py" line="53"/>
@@ -430,7 +430,7 @@
     <message>
         <location filename="../src/converter.py" line="55"/>
         <source>Please select options in the dialog window and press Ok</source>
-        <translation>Selectionnez les options dans la fenêtre de dialogue et cliquez sur Ok</translation>
+        <translation>Sélectionnez les options dans la fenêtre de dialogue et cliquez sur Ok</translation>
     </message>
 </context>
 </TS>
