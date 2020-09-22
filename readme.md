@@ -12,5 +12,5 @@ In case of video files, it will be actions->extract audio to format->(OGG, FLAC,
 On right click on folders, it will be actions->Convert audio files to format->(OGG, FLAC, MP3, WAV).<br>
 
 It can converts audio files or extract audio from video file to wav, flac, ogg or mp3.<br/>
-User can only change samplerate and quality (Bit depth in case of wav and flac formats).<br>
+User can only change samplerate and quality (Bit depth in case of wav and flac formats).<br/>
 ![Screenshot](https://raw.githubusercontent.com/Houston4444/ActionMenuAudioConverter/master/resources/screenshots/dialog.png)
