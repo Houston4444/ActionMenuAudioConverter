@@ -2,6 +2,7 @@ Action Menu Audio Converter is a very simple frontend for ffmpeg, that has to be
 
 it can be used in KDE desktop (Dolphin, Konqueror), MATE (Caja), LXDE (PCManFm) and LXQT(PCManFm-Qt).<br/>
 MATE users must install caja-actions to make it works.<br>
+There is no particular desktop dependencies, so it could be possible to make it usable with other desktops (XFCE, CINNAMON...not sure for GNOME).
 
 Then, when you right click on an audio file in your file manager, you will see actions->convert to format->(OGG, FLAC, MP3, WAV).<br/>
 
