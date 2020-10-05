@@ -35,7 +35,7 @@ On Debian and Ubuntu, use these commands to install all build dependencies: <br/
 `$ sudo apt-get install python3-pyqt5 pyqt5-dev-tools qtchooser`
 
 To run it, you'll additionally need:
-
+ - python3-pyqt5
  - python3-pymediainfo
  - ffmpeg
 
