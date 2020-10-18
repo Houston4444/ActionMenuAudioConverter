@@ -6,7 +6,7 @@ import threading
 
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QApplication
-from PyQt5.QtCore import QLocale, QTranslator, QSettings
+from PyQt5.QtCore import QLocale, QTranslator, QSettings, QLibraryInfo
 
 import main_object as Mo
 import first_dialog
@@ -46,6 +46,11 @@ def main_script():
 
     if app_translator.load("%s/locale/converter_%s" % (code_root, locale)):
         app.installTranslator(app_translator)
+
+    sysTranslator = QTranslator()
+    pathSysTranslations = QLibraryInfo.location(QLibraryInfo.TranslationsPath)
+    if sysTranslator.load(QLocale(), 'qt', '_', pathSysTranslations):
+        app.installTranslator(sysTranslator)
 
     _translate = QApplication.translate
 
