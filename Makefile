@@ -49,7 +49,7 @@ src/ui_%.py: resources/ui/%.ui
 
 LOCALE: locale
 
-locale: locale/converter_fr_FR.qm locale/converter_en_US.qm
+locale: locale/converter_fr.qm locale/converter_en.qm
 
 locale/%.qm: locale/%.ts
 	$(LRELEASE) $< -qm $@

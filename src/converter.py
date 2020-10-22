@@ -40,12 +40,11 @@ def main_script():
     settings = QSettings()
 
     ### Translation process
-    locale = QLocale.system().name()
-    app_translator = QTranslator()
     code_root = os.path.dirname(os.path.dirname(sys.argv[0]))
 
-    if app_translator.load("%s/locale/converter_%s" % (code_root, locale)):
-        app.installTranslator(app_translator)
+    appTranslator = QTranslator()
+    if appTranslator.load(QLocale(), 'converter', '_', code_root + '/locale'):
+        app.installTranslator(appTranslator)
 
     sysTranslator = QTranslator()
     pathSysTranslations = QLibraryInfo.location(QLibraryInfo.TranslationsPath)
